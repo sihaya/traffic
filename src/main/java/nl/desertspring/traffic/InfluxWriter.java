@@ -20,7 +20,7 @@ public class InfluxWriter {
 		influxDb = InfluxDBFactory.connect("http://localhost:8086", "root", "root");
 	}
 	
-	public void addMeasurement(AverageVehicleSpeedMeasurement speedMeasurement) {
+	public void measurementRead(AverageVehicleSpeedMeasurement speedMeasurement) {
 		if (batch == null) {
 			batch = BatchPoints
 					.database(DB_NAME)                

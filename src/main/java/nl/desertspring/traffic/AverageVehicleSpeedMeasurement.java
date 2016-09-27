@@ -3,13 +3,13 @@ package nl.desertspring.traffic;
 import java.util.Calendar;
 
 public class AverageVehicleSpeedMeasurement {
-	private String measurementPoint;
+	private MeasurementCharacteristics measurementCharacteristics;
 	private int lane;
 	private double averageVehicleSpeed;
 	private Calendar measurementTime;
 	
-	public AverageVehicleSpeedMeasurement withMeasurementPoint(String measurementPoint) {
-		this.measurementPoint = measurementPoint;
+	public AverageVehicleSpeedMeasurement withMeasurementCharacteristics(MeasurementCharacteristics measurementCharacteristics) {
+		this.measurementCharacteristics = measurementCharacteristics;
 		
 		return this;
 	}
@@ -32,8 +32,8 @@ public class AverageVehicleSpeedMeasurement {
 		return this;
 	}
 
-	public String getMeasurementPoint() {
-		return measurementPoint;
+	public MeasurementCharacteristics getMeasurementPoint() {
+		return measurementCharacteristics;
 	}
 
 	public int getLane() {
