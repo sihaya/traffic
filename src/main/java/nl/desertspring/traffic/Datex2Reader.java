@@ -153,8 +153,7 @@ public class Datex2Reader {
 				int speed = Integer.parseInt(readCharacters(reader));
 				
 				influxWriter.measurementRead(new AverageVehicleSpeedMeasurement()
-						.withAverageVehicleSpeed(speed)
-						.withLane(characteristics.getLane())
+						.withAverageVehicleSpeed(speed)						
 						.withMeasurementTime(timeDefault)
 						.withMeasurementCharacteristics(characteristics));
 				

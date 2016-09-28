@@ -36,7 +36,6 @@ public class Datex2MdpReaderTest {
 		verify(influxWriter, times(1)).measurementRead(values.capture());
 		
 		assertThat(values.getAllValues().get(0).getAverageVehicleSpeed(), equalTo(80.0));
-		assertThat(values.getAllValues().get(0).getMeasurementPoint(), equalTo(characteristics));
-		assertThat(values.getAllValues().get(0).getLane(), equalTo(2));
+		assertThat(values.getAllValues().get(0).getMeasurementCharacteristics(), equalTo(characteristics));		
 	}
 }

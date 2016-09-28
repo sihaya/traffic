@@ -31,8 +31,8 @@ public class InfluxWriter {
 		
 		Point point = Point.measurement("average_vehicle_speed_measurement")
                 .time(speedMeasurement.getMeasurementTime().getTimeInMillis(), TimeUnit.MILLISECONDS)
-                .addField("measurement_point", speedMeasurement.getMeasurementPoint())
-                .addField("lane", speedMeasurement.getLane())
+                .addField("measurement_point", speedMeasurement.getMeasurementCharacteristics().getId())
+                .addField("lane", speedMeasurement.getMeasurementCharacteristics().getLane())
                 .addField("average_speed", speedMeasurement.getAverageVehicleSpeed())
                 .build();
 		

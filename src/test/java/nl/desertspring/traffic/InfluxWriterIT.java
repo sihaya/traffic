@@ -16,22 +16,23 @@ public class InfluxWriterIT {
 	
 	@Test
 	public void writesSpeedValuesToInfluxAfterFlushing() {
+		MeasurementCharacteristics measurementCharacteristics = new MeasurementCharacteristics()
+				.withId("PUT01_N413.03")
+				.withLane(1);
+		
 		AverageVehicleSpeedMeasurement speedMeasurement1 = new AverageVehicleSpeedMeasurement()
-				.withMeasurementCharacteristics("PUT01_N413.03")
-				.withAverageVehicleSpeed(44)
-				.withLane(1)
+				.withMeasurementCharacteristics(measurementCharacteristics)
+				.withAverageVehicleSpeed(44)				
 				.withMeasurementTime(dateFromIso("2016-09-09T09:50:00Z"));
 		
 		AverageVehicleSpeedMeasurement speedMeasurement2 = new AverageVehicleSpeedMeasurement()
-				.withMeasurementCharacteristics("PUT01_N413.03")
-				.withAverageVehicleSpeed(64)
-				.withLane(1)
+				.withMeasurementCharacteristics(measurementCharacteristics)						
+				.withAverageVehicleSpeed(64)				
 				.withMeasurementTime(dateFromIso("2016-09-09T09:51:00Z"));
 		
 		AverageVehicleSpeedMeasurement speedMeasurement3 = new AverageVehicleSpeedMeasurement()
-				.withMeasurementCharacteristics("PUT01_N413.03")
-				.withAverageVehicleSpeed(84)
-				.withLane(1)
+				.withMeasurementCharacteristics(measurementCharacteristics)
+				.withAverageVehicleSpeed(84)				
 				.withMeasurementTime(dateFromIso("2016-09-09T09:52:00Z"));
 		
 		influxWriter.measurementRead(speedMeasurement1);

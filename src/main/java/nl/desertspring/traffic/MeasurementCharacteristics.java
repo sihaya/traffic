@@ -5,9 +5,16 @@ public class MeasurementCharacteristics {
 		TRAFFIC_SPEED
 	}
 
+	private String id;
 	private int lane;
 	private MeasurementType type;
 	private boolean anyVehicleType;
+	
+	public MeasurementCharacteristics withId(String id) {
+		this.id = id;
+		
+		return this;
+	}
 
 	public MeasurementCharacteristics withLane(int lane) {
 		this.lane = lane;
@@ -37,5 +44,9 @@ public class MeasurementCharacteristics {
 
 	public boolean isAnyVehicleType() {
 		return anyVehicleType;
+	}
+	
+	public String getId() {
+		return id;
 	}
 }

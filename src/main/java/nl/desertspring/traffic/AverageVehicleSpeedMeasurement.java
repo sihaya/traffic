@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 public class AverageVehicleSpeedMeasurement {
 	private MeasurementCharacteristics measurementCharacteristics;
-	private int lane;
 	private double averageVehicleSpeed;
 	private Calendar measurementTime;
 	
@@ -26,20 +25,10 @@ public class AverageVehicleSpeedMeasurement {
 		return this;
 	}
 	
-	public AverageVehicleSpeedMeasurement withLane(int lane) {
-		this.lane = lane;
-		
-		return this;
-	}
-
-	public MeasurementCharacteristics getMeasurementPoint() {
+	public MeasurementCharacteristics getMeasurementCharacteristics() {
 		return measurementCharacteristics;
 	}
-
-	public int getLane() {
-		return lane;
-	}
-
+	
 	public double getAverageVehicleSpeed() {
 		return averageVehicleSpeed;
 	}
