@@ -17,7 +17,7 @@ public class Datex2MdpReaderTest {
 		InfluxWriter influxWriter = mock(InfluxWriter.class);
 		
 		Datex2MstRepository datex2MstRepository = mock(Datex2MstRepository.class);
-		Datex2Reader reader = new Datex2Reader(influxWriter, datex2MstRepository);
+		Datex2MdpReader reader = new Datex2MdpReader(influxWriter, datex2MstRepository);
 		
 		MeasurementCharacteristics characteristics = new MeasurementCharacteristics()
 				.withLane(2)

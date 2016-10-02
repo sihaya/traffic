@@ -2,11 +2,8 @@ package nl.desertspring.traffic;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -14,13 +11,13 @@ import javax.xml.stream.XMLStreamReader;
 
 import nl.desertspring.traffic.MeasurementCharacteristics.MeasurementType;
 
-public class Datex2Reader {
+public class Datex2MdpReader {
 	private static final String XSI_NS = "http://www.w3.org/2001/XMLSchema-instance";
 	private static final String DATEX_NS = "http://datex2.eu/schema/2/2_0";
 	private Datex2MstRepository datex2MstRepository;
 	private InfluxWriter influxWriter;
 
-	public Datex2Reader(InfluxWriter influxWriter, Datex2MstRepository datex2MstRepository) {
+	public Datex2MdpReader(InfluxWriter influxWriter, Datex2MstRepository datex2MstRepository) {
 		this.influxWriter = influxWriter;
 		this.datex2MstRepository = datex2MstRepository;
 	}
@@ -93,7 +90,7 @@ public class Datex2Reader {
 					readMeasuredValue(id, timeDefault, reader);
 					break;
 				}
-
+				break;
 			case XMLStreamReader.END_ELEMENT:
 				elemName = reader.getLocalName();
 
@@ -138,6 +135,7 @@ public class Datex2Reader {
 
 					firstSeen = true;
 				}
+				break;
 			}
 
 		}

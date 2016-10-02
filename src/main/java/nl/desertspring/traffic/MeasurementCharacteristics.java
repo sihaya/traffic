@@ -2,13 +2,14 @@ package nl.desertspring.traffic;
 
 public class MeasurementCharacteristics {
 	public static enum MeasurementType {
-		TRAFFIC_SPEED
+		TRAFFIC_SPEED, UNKNOWN
 	}
 
 	private String id;
 	private int lane;
 	private MeasurementType type;
 	private boolean anyVehicleType;
+	private int period;
 	
 	public MeasurementCharacteristics withId(String id) {
 		this.id = id;
@@ -33,6 +34,12 @@ public class MeasurementCharacteristics {
 
 		return this;
 	}
+	
+	public MeasurementCharacteristics withPeriod(int period) {
+		this.period = period;
+		
+		return this;
+	}
 
 	public int getLane() {
 		return lane;
@@ -49,4 +56,9 @@ public class MeasurementCharacteristics {
 	public String getId() {
 		return id;
 	}
+	
+	public int getPeriod() {
+		return period;
+	}
+	
 }
