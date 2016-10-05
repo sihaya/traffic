@@ -25,7 +25,7 @@ public class Datex2MdpReaderTest {
 				.withAnyVehicleType(true);
 				
 		
-		when(datex2MstRepository.findByIdAndIndex("NDW01_MT", 868, "PUT01_PUVIS_N416.03_1_2", 12, 2)).thenReturn(characteristics);
+		when(datex2MstRepository.findByIdAndIndex("NDW01_MT", 868, "PZH01_MST_0004_00", 12, 8)).thenReturn(characteristics);
 		
 		
 		reader.parse(new File("src/test/resources/traffic_speed_sample.xml"));

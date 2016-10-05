@@ -224,7 +224,7 @@ public class Datex2MstReader {
 				result.append(reader.getText());
 				break;
 			case XMLStreamReader.END_ELEMENT:
-				return result.toString();
+				return result.toString().trim();
 			}
 		}
 

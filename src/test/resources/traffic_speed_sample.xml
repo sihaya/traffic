@@ -24,11 +24,11 @@
 					<informationStatus>real</informationStatus>
 				</headerInformation>
 				<siteMeasurements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<measurementSiteReference id="PUT01_PUVIS_N416.03_1_2"
+					<measurementSiteReference id="PZH01_MST_0004_00"
 						version="12" targetClass="MeasurementSiteRecord" />
 					<measurementTimeDefault>2016-09-09T13:57:00Z
 					</measurementTimeDefault>
-					<measuredValue index="1">
+					<measuredValue index="4">
 						<measuredValue>
 							<basicData xsi:type="TrafficFlow">
 								<vehicleFlow>
@@ -37,7 +37,7 @@
 							</basicData>
 						</measuredValue>
 					</measuredValue>
-					<measuredValue index="2">
+					<measuredValue index="8">
 						<measuredValue>
 							<basicData xsi:type="TrafficSpeed">
 								<averageVehicleSpeed

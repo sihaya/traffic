@@ -11,6 +11,8 @@ import java.io.File;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import nl.desertspring.traffic.MeasurementCharacteristics.MeasurementType;
+
 public class Datex2MstReaderTest {
 	@Test
 	public void findsMeasurementCharacteristicsById() throws Exception {
@@ -21,9 +23,10 @@ public class Datex2MstReaderTest {
 		
 		ArgumentCaptor<MeasurementCharacteristics> characteristics = ArgumentCaptor.forClass(MeasurementCharacteristics.class);
 		
-		verify(repository).save(eq("NDW01_MT"), eq(868), eq("PZH01_MST_0004_00"), eq(1), eq(8), characteristics.capture());
+		verify(repository).save(eq("NDW01_MT"), eq(868), eq("PZH01_MST_0004_00"), eq(12), eq(8), characteristics.capture());
 		
 		assertTrue(characteristics.getValue().isAnyVehicleType());
+		assertEquals(MeasurementType.TRAFFIC_SPEED, characteristics.getValue().getType());
 		assertEquals(1, characteristics.getValue().getLane());
 	}
 }

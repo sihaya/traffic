@@ -34,6 +34,7 @@ public class InfluxWriter {
                 .addField("measurement_point", speedMeasurement.getMeasurementCharacteristics().getId())
                 .addField("lane", speedMeasurement.getMeasurementCharacteristics().getLane())
                 .addField("average_speed", speedMeasurement.getAverageVehicleSpeed())
+                .addField("period", speedMeasurement.getAverageVehicleSpeed())
                 .build();
 		
 		batch.point(point);

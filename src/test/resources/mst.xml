@@ -23,7 +23,7 @@
 				</headerInformation>
 				<measurementSiteTable id="NDW01_MT" version="868">
 					<measurementSiteRecord id="PZH01_MST_0004_00"
-						version="1">
+						version="12">
 						<measurementSiteRecordVersionTime>2014-11-26T12:00:00Z
 						</measurementSiteRecordVersionTime>
 						<computationMethod>arithmeticAverageOfSamplesInATimePeriod
