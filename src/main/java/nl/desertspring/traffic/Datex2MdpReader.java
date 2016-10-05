@@ -13,9 +13,10 @@ import nl.desertspring.traffic.MeasurementCharacteristics.MeasurementType;
 
 public class Datex2MdpReader {
 	private static final String XSI_NS = "http://www.w3.org/2001/XMLSchema-instance";
-	private static final String DATEX_NS = "http://datex2.eu/schema/2/2_0";
 	private Datex2MstRepository datex2MstRepository;
 	private InfluxWriter influxWriter;
+	private String tableId;
+	private int tableVersion;
 
 	public Datex2MdpReader(InfluxWriter influxWriter, Datex2MstRepository datex2MstRepository) {
 		this.influxWriter = influxWriter;
@@ -70,6 +71,7 @@ public class Datex2MdpReader {
 	private void readSiteMeasurements(XMLStreamReader reader) throws XMLStreamException, ParseException {
 		String id = null;
 		Calendar timeDefault = null;
+		int version = 0;
 		
 		while (reader.hasNext()) {
 			int type = reader.next();
@@ -82,12 +84,13 @@ public class Datex2MdpReader {
 				switch (elemName) {
 				case "measurementSiteReference":
 					id = reader.getAttributeValue(null, "id");
+					version = Integer.parseInt(reader.getAttributeValue(null, "version"));
 					break;
 				case "measurementTimeDefault":
 					timeDefault = readCharactersIsoTime(reader);
 					break;
 				case "measuredValue":
-					readMeasuredValue(id, timeDefault, reader);
+					readMeasuredValue(id, version, timeDefault, reader);
 					break;
 				}
 				break;
@@ -106,10 +109,10 @@ public class Datex2MdpReader {
 		return javax.xml.bind.DatatypeConverter.parseDateTime(readCharacters(reader));
 	}
 
-	private void readMeasuredValue(String id, Calendar timeDefault, XMLStreamReader reader) throws XMLStreamException, ParseException {
+	private void readMeasuredValue(String id, int version, Calendar timeDefault, XMLStreamReader reader) throws XMLStreamException, ParseException {
 		int index = Integer.parseInt(reader.getAttributeValue(null, "index"));
 
-		MeasurementCharacteristics characteristics = datex2MstRepository.findByIdAndIndex(id, index);
+		MeasurementCharacteristics characteristics = datex2MstRepository.findByIdAndIndex(tableId, tableVersion, id, version, index);
 
 		boolean firstSeen = false;
 		while (reader.hasNext()) {
@@ -181,6 +184,9 @@ public class Datex2MdpReader {
 	}
 
 	private void readMeasurementSiteTableReference(XMLStreamReader reader) throws XMLStreamException {
+		tableId = reader.getAttributeValue(null, "id");
+		tableVersion = Integer.parseInt(reader.getAttributeValue(null, "version"));
+		
 		while (reader.hasNext()) {
 			int type = reader.next();
 
