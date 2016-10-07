@@ -1,8 +1,9 @@
 package nl.desertspring.traffic;
 
+import static nl.desertspring.traffic.Util.openFile;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 
 import javax.xml.stream.XMLInputFactory;
@@ -20,10 +21,10 @@ public class Datex2MstReader {
 		this.repository = repository;
 	}
 
-	public void parse(File file) throws FileNotFoundException, XMLStreamException, ParseException {
+	public void parse(File file) throws XMLStreamException, ParseException, IOException {
 		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 
-		XMLStreamReader reader = inputFactory.createXMLStreamReader(new FileInputStream(file));
+		XMLStreamReader reader = inputFactory.createXMLStreamReader(openFile(file));
 
 		while (reader.hasNext()) {
 			int type = reader.next();

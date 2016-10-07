@@ -1,7 +1,8 @@
 package nl.desertspring.traffic;
 
+import static nl.desertspring.traffic.Util.openFile;
+
 import java.io.File;
-import java.io.FileInputStream;
 import java.text.ParseException;
 import java.util.Calendar;
 
@@ -26,7 +27,7 @@ public class Datex2MdpReader {
 	public void parse(File file) throws Exception {
 		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 
-		XMLStreamReader reader = inputFactory.createXMLStreamReader(new FileInputStream(file));
+		XMLStreamReader reader = inputFactory.createXMLStreamReader(openFile(file));
 
 		while (reader.hasNext()) {
 			int type = reader.next();

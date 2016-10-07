@@ -28,7 +28,7 @@ public class Datex2MdpReaderTest {
 		when(datex2MstRepository.findByIdAndIndex("NDW01_MT", 868, "PZH01_MST_0004_00", 12, 8)).thenReturn(characteristics);
 		
 		
-		reader.parse(new File("src/test/resources/traffic_speed_sample.xml"));
+		reader.parse(new File("src/test/resources/traffic_speed_sample.xml.gz"));
 //		reader.parse(new File("../traffic-sample-data/big_traffic_speed_sample.xml"));
 		
 		
