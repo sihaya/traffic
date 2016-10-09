@@ -9,7 +9,7 @@ public class MeasurementCharacteristics {
 	private int lane;
 	private MeasurementType type;
 	private boolean anyVehicleType;
-	private int period;
+	private double period;
 	
 	public MeasurementCharacteristics withId(String id) {
 		this.id = id;
@@ -35,7 +35,7 @@ public class MeasurementCharacteristics {
 		return this;
 	}
 	
-	public MeasurementCharacteristics withPeriod(int period) {
+	public MeasurementCharacteristics withPeriod(double period) {
 		this.period = period;
 		
 		return this;
@@ -57,7 +57,7 @@ public class MeasurementCharacteristics {
 		return id;
 	}
 	
-	public int getPeriod() {
+	public double getPeriod() {
 		return period;
 	}
 	

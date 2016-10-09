@@ -1,6 +1,7 @@
 package nl.desertspring.traffic;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ public class Datex2MstRepositoryTest {
 		assertNotNull(actual);
 		assertEquals(expected.getId(), actual.getId());		
 		assertEquals(expected.getLane(), actual.getLane());
-		assertEquals(expected.getPeriod(), actual.getPeriod());
+		assertEquals(expected.getPeriod(), actual.getPeriod(), 0.00001);
 		assertEquals(expected.getType(), actual.getType());		
 	}
 }

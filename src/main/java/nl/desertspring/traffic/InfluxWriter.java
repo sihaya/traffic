@@ -30,17 +30,21 @@ public class InfluxWriter {
 		}
 		
 		Point point = Point.measurement("average_vehicle_speed_measurement")
-                .time(speedMeasurement.getMeasurementTime().getTimeInMillis(), TimeUnit.MILLISECONDS)
-                .addField("measurement_point", speedMeasurement.getMeasurementCharacteristics().getId())
-                .addField("lane", speedMeasurement.getMeasurementCharacteristics().getLane())
+                .time(speedMeasurement.getMeasurementTime().getTimeInMillis(), TimeUnit.MILLISECONDS)                                
                 .addField("average_speed", speedMeasurement.getAverageVehicleSpeed())
-                .addField("period", speedMeasurement.getAverageVehicleSpeed())
+                .tag("measurement_point", speedMeasurement.getMeasurementCharacteristics().getId())
+                .tag("lane", Integer.toString(speedMeasurement.getMeasurementCharacteristics().getLane()))
+                .tag("period", String.format("%.2f", speedMeasurement.getMeasurementCharacteristics().getPeriod()))
                 .build();
 		
-		batch.point(point);
+		batch.point(point);		
 	}
 
 	public void flush() {
+		if (batch == null) {
+			return;
+		}
+		
 		influxDb.write(batch);
 		
 		batch = null;

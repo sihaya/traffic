@@ -159,8 +159,8 @@ public class Datex2MstReader {
 					
 					MeasurementCharacteristics characteristics = new MeasurementCharacteristics()
 							.withAnyVehicleType(isAnyVehicleType)
-							.withId(recordId)
-							.withPeriod(Integer.parseInt(period))
+							.withId(recordId)							
+							.withPeriod(Double.parseDouble(period))
 							.withType(parseMeasurementType(specificMeasurementValueType))
 							.withLane(parseLane(specificLane));
 				    repository.save(id, Integer.parseInt(version), recordId, 
@@ -181,7 +181,11 @@ public class Datex2MstReader {
 	}
 		
 	private int parseLane(String specificLane) {
-		return Integer.parseInt(specificLane.replace("lane", ""));
+		if (specificLane != null && specificLane.startsWith("lane")) {
+			return Integer.parseInt(specificLane.replace("lane", ""));
+		}
+		
+		return 0;
 	}
 
 	private MeasurementType parseMeasurementType(String specificMeasurementValueType) {

@@ -25,6 +25,7 @@ public class TrafficImportApp {
 		mstReader.parse(new File(mstFile));
 		
 		InfluxWriter influxWriter = new InfluxWriter();
+		influxWriter.resetDb();
 		
 		Datex2MdpReader mdpReader = new Datex2MdpReader(influxWriter, repository);
 		

@@ -152,12 +152,14 @@ public class Datex2MdpReader {
 
 			switch (type) {
 			case XMLStreamReader.START_ELEMENT:
-				int speed = Integer.parseInt(readCharacters(reader));
-				
-				influxWriter.measurementRead(new AverageVehicleSpeedMeasurement()
-						.withAverageVehicleSpeed(speed)						
-						.withMeasurementTime(timeDefault)
-						.withMeasurementCharacteristics(characteristics));
+				if (reader.getLocalName().equals("speed")) {
+					double speed = Double.parseDouble(readCharacters(reader));
+					
+					influxWriter.measurementRead(new AverageVehicleSpeedMeasurement()
+							.withAverageVehicleSpeed(speed)						
+							.withMeasurementTime(timeDefault)
+							.withMeasurementCharacteristics(characteristics));
+				}
 				
 				break;
 			case XMLStreamReader.END_ELEMENT:
