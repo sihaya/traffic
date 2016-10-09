@@ -1,0 +1,22 @@
+<html ng-app='traffic'>
+<head>
+<link rel="stylesheet" href="style.css"/>
+<script src='node_modules/lodash/lodash.min.js'></script>
+<script src='node_modules/angular/angular.min.js'></script>
+<script src='node_modules/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
+<script src='node_modules/angular-google-maps/dist/angular-google-maps.min.js'></script>
+<script src="node_modules/chart.js/dist/Chart.min.js"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+<script src='controllers.js'></script>
+</head>
+<body ng-controller='TrafficController'>
+	<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+		<ui-gmap-markers models="markers" coords="'self'" click="markerClicked">
+        </ui-gmap-markers>
+	</ui-gmap-google-map>
+	
+	<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
+		chart-dataset-override="datasetOverride" chart-click="onClick">		
+	</canvas>
+</body>
+</html>
