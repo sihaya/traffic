@@ -15,6 +15,12 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', f
 		zoom : 14
 	};
 	
+	$scope.events = {
+			"idle": function(maps) {
+				console.log(maps.getBounds());
+			}
+	}
+	
 	$scope.markers = [{
 		id: 'RWS01_MONICA_00D0040B1829D0050309',
 	    latitude: 51.91691,

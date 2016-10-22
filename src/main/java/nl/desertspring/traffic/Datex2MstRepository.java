@@ -1,6 +1,7 @@
 package nl.desertspring.traffic;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Datex2MstRepository {
@@ -67,6 +68,11 @@ public class Datex2MstRepository {
 
 	public void save(String tableName, int tableVersion, String measurementSiteId, int version, int index, MeasurementCharacteristics characteristics) {
 		data.put(new MstKey(tableName, tableVersion, measurementSiteId, version, index), characteristics);
+	}
+
+	public List<MeasurementCharacteristics> findByBounds(double northEastLat, double northEastLng, double southWestLat, double southWestLng) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

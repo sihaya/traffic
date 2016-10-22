@@ -10,6 +10,8 @@ public class MeasurementCharacteristics {
 	private MeasurementType type;
 	private boolean anyVehicleType;
 	private double period;
+	private double lat;
+	private double lng;
 	
 	public MeasurementCharacteristics withId(String id) {
 		this.id = id;
@@ -40,6 +42,12 @@ public class MeasurementCharacteristics {
 		
 		return this;
 	}
+	
+	public MeasurementCharacteristics withLatLng(double lat, double lng) {
+		this.lat = lat;
+		this.lng = lng;
+		return this;
+	}	
 
 	public int getLane() {
 		return lane;
@@ -61,4 +69,11 @@ public class MeasurementCharacteristics {
 		return period;
 	}
 	
+	public double getLat() {
+		return lat;
+	}
+	
+	public double getLng() {
+		return lng;
+	}
 }

@@ -10,7 +10,7 @@
 <script src='controllers.js'></script>
 </head>
 <body ng-controller='TrafficController'>
-	<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+	<ui-gmap-google-map center='map.center' zoom='map.zoom' events='events'>
 		<ui-gmap-markers models="markers" coords="'self'" click="markerClicked">
         </ui-gmap-markers>
 	</ui-gmap-google-map>
