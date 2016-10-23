@@ -5,6 +5,11 @@ import static nl.desertspring.traffic.Util.openFile;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -91,13 +96,16 @@ public class Datex2MstReader {
 		String recordId = reader.getAttributeValue(null, "id");
 		String recordVersion = reader.getAttributeValue(null, "version");
 		
+		Map<String, List<MeasurementCharacteristics>> results = new HashMap<>();
 		while (reader.hasNext()) {
 			int type = reader.next();
 			
 			switch(type) {
 			case XMLStreamReader.START_ELEMENT:
 				if (reader.getLocalName().equals("measurementSpecificCharacteristics")) {
-					readMeasurementSpecificCharacteristics(id, version, recordId, recordVersion, reader);
+					results.putAll(readMeasurementSpecificCharacteristics(id, version, recordId, recordVersion, reader));
+				} else if (reader.getLocalName().equals("measurementSiteLocation")) {
+					readMeasurementSiteLocation(id, version, recordId, recordVersion, results, reader);
 				}
 				
 				break;
@@ -106,31 +114,74 @@ public class Datex2MstReader {
 					return;
 				}
 			}
-			
+		}
 	}
 
-}
+	private void readMeasurementSiteLocation(String id, String version, String recordId, String recordVersion,
+			Map<String, List<MeasurementCharacteristics>> results, XMLStreamReader reader) throws NumberFormatException, XMLStreamException, ParseException {
+		
+		double lat = 0.0;
+		double lng = 0.0;
+		while (reader.hasNext()) {
+			int type = reader.next();
+			
+			switch(type) {
+			case XMLStreamReader.START_ELEMENT:
+				if (reader.getLocalName().equals("latitude")) {
+					lat = Double.parseDouble(readCharacters(reader));
+				} else if (reader.getLocalName().equals("longitude")) {
+					lng = Double.parseDouble((readCharacters(reader)));
+				}
+			case XMLStreamReader.END_ELEMENT:
+				if (reader.getLocalName().equals("measurementSiteLocation")) {
+					saveCompleteMeasurementPoint(id, version, recordId, recordVersion, lat, lng, results);
+					return;
+				}				
+			}
+		}		
+	}
 
-	private void readMeasurementSpecificCharacteristics(String id, String version, String recordId,
+	private void saveCompleteMeasurementPoint(String id, String version, String recordId, String recordVersion,
+			double lat, double lng, Map<String, List<MeasurementCharacteristics>> results) {
+		for (Entry<String, List<MeasurementCharacteristics>> result : results.entrySet()) {
+			String index = result.getKey();
+			
+			MeasurementCharacteristics value = result.getValue().get(0);			
+			value.withLatLng(lat, lng);
+			
+			repository.save(id, Integer.parseInt(version), recordId, 
+		    		Integer.parseInt(recordVersion), 
+		    		Integer.parseInt(index), value);
+		}		
+	}
+
+	private Map<String, List<MeasurementCharacteristics>> readMeasurementSpecificCharacteristics(String id, String version, String recordId,
 			String recordVersion, XMLStreamReader reader) throws XMLStreamException, ParseException {
 		String index = reader.getAttributeValue(null, "index");
+		
+		Map<String, List<MeasurementCharacteristics>> results = new HashMap<>(); 
+		
+		outer:
 		while (reader.hasNext()) {
 			int type = reader.next();
 			
 			switch(type) {
 			case XMLStreamReader.START_ELEMENT:
 				if (reader.getLocalName().equals("measurementSpecificCharacteristics")) {
-					readMeasurementSpecificCharacteristics(id, version, recordId, recordVersion, index, reader);
+					List<MeasurementCharacteristics> characteristics = readMeasurementSpecificCharacteristics(id, version, recordId, recordVersion, index, reader);
+					results.put(index, characteristics);
 				}
 				
 				break;
 			case XMLStreamReader.END_ELEMENT:
-				return;
+				break outer;
 			}
 		}
+		
+		return results;
 	}
 
-	private void readMeasurementSpecificCharacteristics(String id, String version, String recordId,
+	private List<MeasurementCharacteristics> readMeasurementSpecificCharacteristics(String id, String version, String recordId,
 			String recordVersion, String index, XMLStreamReader reader) throws XMLStreamException, ParseException {
 		
 		String period = null;
@@ -138,6 +189,9 @@ public class Datex2MstReader {
 		String specificMeasurementValueType = null;
 		boolean isAnyVehicleType = false;
 		
+		List<MeasurementCharacteristics> results = new ArrayList<>();
+		
+		outer:
 		while (reader.hasNext()) {
 			int type = reader.next();
 			
@@ -163,9 +217,7 @@ public class Datex2MstReader {
 							.withPeriod(Double.parseDouble(period))
 							.withType(parseMeasurementType(specificMeasurementValueType))
 							.withLane(parseLane(specificLane));
-				    repository.save(id, Integer.parseInt(version), recordId, 
-				    		Integer.parseInt(recordVersion), 
-				    		Integer.parseInt(index), characteristics);
+					results.add(characteristics);				    
 					
 					break;
 				}
@@ -173,11 +225,13 @@ public class Datex2MstReader {
 				break;
 			case XMLStreamReader.END_ELEMENT:
 				if (reader.getLocalName().equals("measurementSpecificCharacteristics")) {
-					return;
+					break outer;
 				}
 			}
 			
 		}
+		
+		return results;
 	}
 		
 	private int parseLane(String specificLane) {

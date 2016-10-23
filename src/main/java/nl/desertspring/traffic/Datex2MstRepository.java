@@ -1,5 +1,6 @@
 package nl.desertspring.traffic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,8 +72,16 @@ public class Datex2MstRepository {
 	}
 
 	public List<MeasurementCharacteristics> findByBounds(double northEastLat, double northEastLng, double southWestLat, double southWestLng) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, MeasurementCharacteristics> results = new HashMap<>();
+		
+		for(MeasurementCharacteristics characteristics : data.values()) {
+			if (characteristics.getLat() < northEastLat && characteristics.getLng() < northEastLng && 
+					characteristics.getLat() > southWestLat && characteristics.getLng() > southWestLng) {
+				results.put(characteristics.getId(), characteristics);
+			}
+		}
+		
+		return new ArrayList<>(results.values());
 	}
 
 }

@@ -8,6 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import spark.Spark;
 
@@ -15,7 +16,7 @@ public class TrafficRestAppIT {
 	private ValidatableResponse response;
 	
 	@BeforeClass
-	public static void start() {
+	public static void start() throws Exception {
 		RestAssured.port = 4567;
 		
 		TrafficRestApp.main(new String[] { "src/test/resources/mst_for_radius.xml" });
@@ -38,7 +39,9 @@ public class TrafficRestAppIT {
 	}
 
 	private void thenVerifyItReturnsTheMeasurementPointsWithinTheRadius() {
-		response.body("$[*]", hasSize(2));
+		response
+			.contentType(ContentType.JSON)
+			.body("size()", is(3));
 	}
 
 	private void whenRequestingMeasurementPointsWithinRadius() {
@@ -50,7 +53,6 @@ public class TrafficRestAppIT {
 		.when()
 			.get("measurementpoints")
 		.then();
-			
 	}
 
 	private void givenAnMstWithSomeMeasurementPoints() {

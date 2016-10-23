@@ -28,5 +28,7 @@ public class Datex2MstReaderTest {
 		assertTrue(characteristics.getValue().isAnyVehicleType());
 		assertEquals(MeasurementType.TRAFFIC_SPEED, characteristics.getValue().getType());
 		assertEquals(1, characteristics.getValue().getLane());
+		assertEquals(52.1223, characteristics.getValue().getLat(), 0.0001);
+		assertEquals(4.49208, characteristics.getValue().getLng(), 0.0001);
 	}
 }

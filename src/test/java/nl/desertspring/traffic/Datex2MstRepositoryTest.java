@@ -53,7 +53,7 @@ public class Datex2MstRepositoryTest {
 		datex2MstRepository.save("NDW_1", 123, "ZH_0001", 1, 2, expected);
 		datex2MstRepository.save("NDW_1", 123, "ZH_0002", 1, 2, notMatching);
 		
-		List<MeasurementCharacteristics> results = datex2MstRepository.findByBounds(53.0000, 53.0000, 3.0000, 3.0000);
+		List<MeasurementCharacteristics> results = datex2MstRepository.findByBounds(54.0000, 54.0000, 3.0000, 3.0000);
 		
 		assertThat(results, contains(expected));
 		
