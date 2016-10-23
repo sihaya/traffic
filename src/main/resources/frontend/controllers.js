@@ -15,18 +15,36 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', f
 		zoom : 14
 	};
 	
-	$scope.events = {
-			"idle": function(maps) {
-				console.log(maps.getBounds());
+	var loadMeasurementPoints = function(maps) {
+		$http.get("http://localhost:4567/measurementpoints", {
+			params: {
+				"north_east_lat": maps.getBounds().getNorthEast().lat(),
+				"north_east_lng": maps.getBounds().getNorthEast().lng(),
+				"south_west_lat": maps.getBounds().getSouthWest().lat(),
+				"south_west_lng": maps.getBounds().getSouthWest().lng()				
 			}
+		}).then(function(data) {
+			var markers = [], i;
+			
+			for (i in data.data) {
+				markers.push({
+					id: data.data[i].id,
+				    latitude: data.data[i].lat,
+				    longitude: data.data[i].lng,
+				    title: data.data[i].id
+				});				
+			}
+			
+			$scope.markers = markers;
+		});		
 	}
 	
-	$scope.markers = [{
-		id: 'RWS01_MONICA_00D0040B1829D0050309',
-	    latitude: 51.91691,
-	    longitude: 4.36735,
-	    title: 'RWS01_MONICA_00D0040B1829D0050309'
-	}];
+	$scope.events = {
+			"idle": loadMeasurementPoints
+	}
+	
+		
+	$scope.markers = [];
 	
 	$scope.markerClicked = function(instance, event, model) {
 		alert("jow");

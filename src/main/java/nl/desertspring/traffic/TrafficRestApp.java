@@ -29,6 +29,7 @@ public class TrafficRestApp {
         	double southWestLng = Double.parseDouble(req.queryParams("south_west_lng"));
         	
         	res.header("Content-Type", "application/json");
+        	res.header("Access-Control-Allow-Origin", "*");
         	
         	return repository.findByBounds(northEastLat, northEastLng, southWestLat, southWestLng);        	
         }, gson::toJson);
