@@ -46,11 +46,9 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', f
 		
 	$scope.markers = [];
 	
-	$scope.markerClicked = function(instance, event, model) {
-		alert("jow");
-		
+	$scope.markerClicked = function(instance, event, model) {		
 		var query = "SELECT average_speed FROM average_vehicle_speed_measurement " +
-		"WHERE average_speed != -1 and measurement_point = '" + model.id + "' and lane = '2'";
+		"WHERE average_speed != -1 and measurement_point = '" + model.id + "' and lane = '1'";
 		
 		$http.get('http://localhost:8086/query', {
 			params: {
