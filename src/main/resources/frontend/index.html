@@ -1,6 +1,12 @@
-<html ng-app='traffic'>
+<!DOCTYPE html>
+<html ng-app='traffic' lang="en">
 <head>
-<link rel="stylesheet" href="style.css"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+<link rel="stylesheet" href="style.css">
+
 <script src='node_modules/lodash/lodash.min.js'></script>
 <script src='node_modules/angular/angular.min.js'></script>
 <script src='node_modules/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
@@ -10,13 +16,32 @@
 <script src='controllers.js'></script>
 </head>
 <body ng-controller='TrafficController'>
-	<ui-gmap-google-map center='map.center' zoom='map.zoom' events='events'>
-		<ui-gmap-markers models="markers" coords="'self'" click="markerClicked">
-        </ui-gmap-markers>
-	</ui-gmap-google-map>
-	
-	<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
-		chart-dataset-override="datasetOverride" chart-click="onClick">		
-	</canvas>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4 sidebar">
+				<ul class="list-group">
+  					<li class="list-group-item">
+  						Lane 1
+  						
+  						<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
+							chart-dataset-override="datasetOverride" chart-click="onClick">		
+						</canvas>
+  					</li>
+  					<li class="list-group-item">
+  						Lane 2
+  					</li>
+  					<li class="list-group-item">
+  						Lane 3
+  					</li>
+				</ul>
+			</div>
+			<div class="col-md-8 col-md-offset-4">
+				<ui-gmap-google-map center='map.center' zoom='map.zoom' events='events'>
+					<ui-gmap-markers models="markers" coords="'self'" click="markerClicked">
+	        		</ui-gmap-markers>
+				</ui-gmap-google-map>
+			</div>			
+		</div>
+	</div>
 </body>
 </html>

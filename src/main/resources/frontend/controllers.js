@@ -1,7 +1,7 @@
 angular.module('traffic', [ 'uiGmapgoogle-maps', 'chart.js' ]).config([ 'uiGmapGoogleMapApiProvider', function(uiGmapGoogleMapApiProvider) {
 	uiGmapGoogleMapApiProvider.configure({
 		key : '',
-		v : '3.20', // defaults to latest 3.X anyhow
+		v : '3', // defaults to latest 3.X anyhow
 		libraries : 'weather,geometry,visualization'
 	});
 } ]);
@@ -40,7 +40,7 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', f
 	}
 	
 	$scope.events = {
-			"idle": loadMeasurementPoints
+//			"idle": loadMeasurementPoints
 	}
 	
 		
