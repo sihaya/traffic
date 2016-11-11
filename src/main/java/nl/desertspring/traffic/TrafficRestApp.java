@@ -33,6 +33,9 @@ public class TrafficRestApp {
         	
         	return repository.findByBounds(northEastLat, northEastLng, southWestLat, southWestLng);        	
         }, gson::toJson);
+        
+        // SELECT average_speed FROM average_vehicle_speed_measurement " +
+		//"WHERE average_speed != -1 and measurement_point = '" + model.id + "' and lane = '1'";
     }
 
 	private static Datex2MstRepository initializeRepository(File file) throws XMLStreamException, ParseException, IOException {

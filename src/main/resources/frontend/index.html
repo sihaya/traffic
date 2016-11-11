@@ -19,19 +19,17 @@
 		<div class="row">
 			<div class="col-md-4 sidebar">
 				<ul class="list-group">
-  					<li class="list-group-item">
-  						Lane 1
+  					<li class="list-group-item" data-ng-repeat="lane in lanes">
+  						{{lane.name}}
   						
-  						<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
-							chart-dataset-override="datasetOverride" chart-click="onClick">		
+  						<canvas class="chart chart-line" 
+  							chart-data="lane.data" 
+  							chart-labels="lane.labels" 
+  							chart-series="series" 
+  							chart-options="options"
+							chart-dataset-override="datasetOverride">
 						</canvas>
-  					</li>
-  					<li class="list-group-item">
-  						Lane 2
-  					</li>
-  					<li class="list-group-item">
-  						Lane 3
-  					</li>
+  					</li>  					
 				</ul>
 			</div>
 			<div class="col-md-8">

@@ -1,0 +1,45 @@
+{
+   "lanes" : [
+   {
+      "name" : "lane1",
+      "measurements" : [{
+         "data" : [
+            {
+               "value" : "100",
+               "timestamp" : "1"
+            },
+            {
+               "value" : "101",
+               "timestamp" : "2"
+            },
+            {
+               "timestamp" : "3",
+               "value" : "101"
+            }
+         ],
+         "type" : "average_speed"
+      }]
+   },
+   {
+      "name" : "lane2",
+      "measurements" : [{
+         "data" : [
+            {
+               "value" : "105",
+               "timestamp" : "1"
+            },
+            {
+               "value" : "106",
+               "timestamp" : "2"
+            },
+            {
+               "timestamp" : "3",
+               "value" : "107"
+            }
+         ],
+         "type" : "average_speed"
+      }]
+   }],
+   
+   "id" : "RWS0101"
+}
