@@ -46,4 +46,8 @@ public class TrafficRestApp {
 		
 		return repository;		
 	}
+
+	public static void setClock(int i) {
+		
+	}	
 }

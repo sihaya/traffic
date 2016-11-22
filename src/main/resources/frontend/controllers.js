@@ -47,6 +47,7 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', '
 		$http.get('/mockdata.json', {
 			params: {
 				"period": "24",
+				"time_unit": "hour",
 				"type": "average_speed"
 			}
 		}).then(function(response) {

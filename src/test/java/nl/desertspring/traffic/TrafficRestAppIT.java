@@ -3,6 +3,8 @@ package nl.desertspring.traffic;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+import org.influxdb.InfluxDB;
+import org.influxdb.InfluxDBFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,6 +19,7 @@ public class TrafficRestAppIT {
 	
 	@BeforeClass
 	public static void start() throws Exception {
+		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 		RestAssured.port = 4567;
 		
 		TrafficRestApp.main(new String[] { "src/test/resources/mst_for_radius.xml" });
@@ -36,6 +39,53 @@ public class TrafficRestAppIT {
 		whenRequestingMeasurementPointsWithinRadius();
 		
 		thenVerifyItReturnsTheMeasurementPointsWithinTheRadius();
+	}
+	
+	@Test
+	public void returnsMeasurementDataFromTheLastHourForAMeasurementLocation() throws Exception {
+		givenACleanDatabase();
+		givenTheClockIsSetToSomeFixedTime();
+		givenAnMstWithSomeMeasurementPoints();
+		givenMultipleDataPublicationsFromTheLastHour();
+		
+		whenRequestingDataForTheMeasurementLocation();
+		
+		thenItReturnsTheDataFromTheLastHour();
+	}
+
+	private void givenACleanDatabase() {
+		InfluxWriter.DB_NAME = "traffic_it";
+		
+		InfluxDB influxDb = InfluxDBFactory.connect("http://localhost:8086", "root", "root");
+				
+		influxDb.deleteDatabase(InfluxWriter.DB_NAME);
+	}
+
+	private void thenItReturnsTheDataFromTheLastHour() {
+		response
+		.contentType(ContentType.JSON)
+		.body("lanes.size()", is(1));
+	}
+
+	private void whenRequestingDataForTheMeasurementLocation() {
+		response = given()
+				.param("period", "1")
+				.param("time_unit", "hour")
+				.param("type", "average_speed")
+			.when()
+				.get("measurements/{0}", "PZH01_MST_0004_00")
+			.then();
+	}
+
+	private void givenMultipleDataPublicationsFromTheLastHour() throws Exception {
+		TrafficImportApp.main(new String[] {
+				"src/test/resources/mst_for_radius.xml",
+				"src/test/resources/traffic_speed_sample.xml"
+		});
+	}
+
+	private void givenTheClockIsSetToSomeFixedTime() {
+		TrafficRestApp.setClock(4234234);
 	}
 
 	private void thenVerifyItReturnsTheMeasurementPointsWithinTheRadius() {

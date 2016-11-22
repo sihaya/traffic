@@ -11,7 +11,7 @@ import org.influxdb.dto.Point;
 public class InfluxWriter {
 	
 	private InfluxDB influxDb;
-	private static final String DB_NAME = "trafficTest";
+	public static String DB_NAME = "trafficTest";
 	private BatchPoints batch;
 	
 	
