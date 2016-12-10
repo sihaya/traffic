@@ -41,12 +41,12 @@
 							</values>
 						</measurementSiteName>
 						<measurementSiteNumberOfLanes>2</measurementSiteNumberOfLanes>
-						<measurementSpecificCharacteristics index="1">
+						<measurementSpecificCharacteristics index="8">
 							<measurementSpecificCharacteristics>
 								<accuracy>95</accuracy>
 								<period>60</period>
 								<specificLane>lane1</specificLane>
-								<specificMeasurementValueType>trafficFlow
+								<specificMeasurementValueType>trafficSpeed
 								</specificMeasurementValueType>
 								<specificVehicleCharacteristics>
 									<lengthCharacteristic>

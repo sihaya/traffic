@@ -62,13 +62,15 @@ public class TrafficRestAppIT {
 
 	private void thenItReturnsTheDataFromTheLastHour() {
 		response
+		.log().all().and()
 		.contentType(ContentType.JSON)
-		.body("lanes.size()", is(1));
+		.body("lanes.size()", is(1))
+		.body("lanes[0].measurements[0].data[0].timestamp", is("2016-09-09T13:57:00Z"));
 	}
 
 	private void whenRequestingDataForTheMeasurementLocation() {
 		response = given()
-				.param("start_time", "2016-09-09T13:58:40Z")
+				.param("start_time", "2016-09-09T13:57:00Z")
 				.param("period", "60")				
 				.param("type", "traffic_speed")
 			.when()

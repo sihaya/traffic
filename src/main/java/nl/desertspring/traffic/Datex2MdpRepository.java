@@ -119,7 +119,7 @@ public class Datex2MdpRepository {
 						.withType(MeasurementType.TRAFFIC_SPEED));
 			}
 			
-			lane.getMeasurements().get(0).getMeasurements().add(tuple);
+			lane.getMeasurements().get(0).getData().add(tuple);
 		}
 		return lanes;
 	}

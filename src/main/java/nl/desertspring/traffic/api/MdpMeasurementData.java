@@ -31,18 +31,18 @@ public class MdpMeasurementData {
 	}
 
 	private MeasurementType type;
-	private List<ValueTuple> measurements = new ArrayList<>();
+	private List<ValueTuple> data = new ArrayList<>();
 
 	public MeasurementType getType() {
 		return type;
 	}
 
-	public List<ValueTuple> getMeasurements() {
-		return measurements;
+	public List<ValueTuple> getData() {
+		return data;
 	}
 	
-	public MdpMeasurementData withMeasurements(List<ValueTuple> measurements) {
-		this.measurements = measurements;
+	public MdpMeasurementData withData(List<ValueTuple> data) {
+		this.data = data;
 		
 		return this;
 	}

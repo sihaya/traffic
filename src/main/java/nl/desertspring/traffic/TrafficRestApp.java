@@ -4,8 +4,10 @@ import static spark.Spark.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -13,6 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import nl.desertspring.traffic.MeasurementCharacteristics.MeasurementType;
 import spark.Response;
@@ -33,7 +40,10 @@ public class TrafficRestApp {
 		Datex2MstRepository repository = initializeRepository(new File(mstFile));
 		Datex2MdpRepository mdpRepository = initializeMdpRepository();
 		
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(GregorianCalendar.class, calendarTypeAdapter())
+				.create();
+		
         get("/measurementpoints", (req, res) -> {
         	double northEastLat = Double.parseDouble(req.queryParams("north_east_lat"));
         	double northEastLng = Double.parseDouble(req.queryParams("north_east_lng"));
@@ -65,6 +75,17 @@ public class TrafficRestApp {
 
 
     }
+
+	private static Object calendarTypeAdapter() {
+		return new JsonSerializer<Calendar>() {
+
+			@Override
+			public JsonElement serialize(Calendar src, Type typeOfSrc, JsonSerializationContext context) {
+				return new JsonPrimitive(IsoDateUtil.dateToIso(src));
+			}
+			
+		};
+	}
 
 	private static void responseHeaders(Response res) {
 		res.header("Content-Type", "application/json");
