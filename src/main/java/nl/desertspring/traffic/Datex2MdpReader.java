@@ -15,11 +15,11 @@ import nl.desertspring.traffic.MeasurementCharacteristics.MeasurementType;
 public class Datex2MdpReader {
 	private static final String XSI_NS = "http://www.w3.org/2001/XMLSchema-instance";
 	private Datex2MstRepository datex2MstRepository;
-	private InfluxWriter influxWriter;
+	private Datex2MdpRepository influxWriter;
 	private String tableId;
 	private int tableVersion;
 
-	public Datex2MdpReader(InfluxWriter influxWriter, Datex2MstRepository datex2MstRepository) {
+	public Datex2MdpReader(Datex2MdpRepository influxWriter, Datex2MstRepository datex2MstRepository) {
 		this.influxWriter = influxWriter;
 		this.datex2MstRepository = datex2MstRepository;
 	}

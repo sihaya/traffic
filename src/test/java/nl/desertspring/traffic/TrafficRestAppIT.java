@@ -23,7 +23,7 @@ public class TrafficRestAppIT {
 		RestAssured.port = 4567;
 		
 		TrafficRestApp.main(new String[] { "src/test/resources/mst_for_radius.xml" });
-		
+				
 		Spark.awaitInitialization();
 	}
 	
@@ -43,8 +43,7 @@ public class TrafficRestAppIT {
 	
 	@Test
 	public void returnsMeasurementDataFromTheLastHourForAMeasurementLocation() throws Exception {
-		givenACleanDatabase();
-		givenTheClockIsSetToSomeFixedTime();
+		givenACleanDatabase();		
 		givenAnMstWithSomeMeasurementPoints();
 		givenMultipleDataPublicationsFromTheLastHour();
 		
@@ -54,11 +53,11 @@ public class TrafficRestAppIT {
 	}
 
 	private void givenACleanDatabase() {
-		InfluxWriter.DB_NAME = "traffic_it";
+		Datex2MdpRepository.DB_NAME = "traffic_it";
 		
 		InfluxDB influxDb = InfluxDBFactory.connect("http://localhost:8086", "root", "root");
 				
-		influxDb.deleteDatabase(InfluxWriter.DB_NAME);
+		influxDb.deleteDatabase(Datex2MdpRepository.DB_NAME);
 	}
 
 	private void thenItReturnsTheDataFromTheLastHour() {
@@ -69,11 +68,11 @@ public class TrafficRestAppIT {
 
 	private void whenRequestingDataForTheMeasurementLocation() {
 		response = given()
-				.param("period", "1")
-				.param("time_unit", "hour")
-				.param("type", "average_speed")
+				.param("start_time", "2016-09-09T13:58:40Z")
+				.param("period", "60")				
+				.param("type", "traffic_speed")
 			.when()
-				.get("measurements/{0}", "PZH01_MST_0004_00")
+				.get("/measurements/{0}", "PZH01_MST_0004_00")
 			.then();
 	}
 
@@ -82,10 +81,6 @@ public class TrafficRestAppIT {
 				"src/test/resources/mst_for_radius.xml",
 				"src/test/resources/traffic_speed_sample.xml"
 		});
-	}
-
-	private void givenTheClockIsSetToSomeFixedTime() {
-		TrafficRestApp.setClock(4234234);
 	}
 
 	private void thenVerifyItReturnsTheMeasurementPointsWithinTheRadius() {

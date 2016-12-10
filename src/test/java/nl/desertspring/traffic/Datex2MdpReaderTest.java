@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class Datex2MdpReaderTest {
 	@Test
 	public void extractsAverageVehicleSpeedFromDatex2() throws Exception {
-		InfluxWriter influxWriter = mock(InfluxWriter.class);
+		Datex2MdpRepository influxWriter = mock(Datex2MdpRepository.class);
 		
 		Datex2MstRepository datex2MstRepository = mock(Datex2MstRepository.class);
 		Datex2MdpReader reader = new Datex2MdpReader(influxWriter, datex2MstRepository);
