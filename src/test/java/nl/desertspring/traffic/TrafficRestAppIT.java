@@ -43,7 +43,7 @@ public class TrafficRestAppIT {
 	
 	@Test
 	public void returnsMeasurementDataFromTheLastHourForAMeasurementLocation() throws Exception {
-		givenACleanDatabase();		
+		givenACleanDatabase();
 		givenAnMstWithSomeMeasurementPoints();
 		givenMultipleDataPublicationsFromTheLastHour();
 		
@@ -81,6 +81,7 @@ public class TrafficRestAppIT {
 	private void givenMultipleDataPublicationsFromTheLastHour() throws Exception {
 		TrafficImportApp.main(new String[] {
 				"src/test/resources/mst_for_radius.xml",
+				"BEGIN_MDP",
 				"src/test/resources/traffic_speed_sample.xml"
 		});
 	}

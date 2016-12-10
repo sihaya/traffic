@@ -41,8 +41,7 @@ public class Datex2MdpRepository {
 	public void measurementRead(AverageVehicleSpeedMeasurement speedMeasurement) {
 		if (batch == null) {
 			batch = BatchPoints
-					.database(DB_NAME)                
-					.retentionPolicy("default")
+					.database(DB_NAME)					
 					.consistency(ConsistencyLevel.ALL)
 					.build();
 		}

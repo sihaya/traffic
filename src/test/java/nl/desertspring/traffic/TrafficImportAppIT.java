@@ -8,7 +8,7 @@ import org.junit.Test;
 public class TrafficImportAppIT {
 	@Test
 	public void importsAListOfMdps() throws Exception {
-		List<String> arguments = Arrays.asList("src/test/resources/mst.xml", "src/test/resources/traffic_speed_sample.xml");
+		List<String> arguments = Arrays.asList("src/test/resources/mst.xml", "BEGIN_MDP", "src/test/resources/traffic_speed_sample.xml");
 		
 		TrafficImportApp app = new TrafficImportApp();
 		
