@@ -37,8 +37,10 @@ public class TrafficRestApp {
 		
 		String mstFile = args[0];
 		
-		Datex2MstRepository repository = initializeRepository(new File(mstFile));
+		Datex2MstRepository mstRepository = initializeRepository(new File(mstFile));
 		Datex2MdpRepository mdpRepository = initializeMdpRepository();
+		Datex2MdpReader mdpReader = new Datex2MdpReader(mdpRepository, mstRepository);
+		Datex2MstReader mstReader = new Datex2MstReader(mstRepository);
 		
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapter(GregorianCalendar.class, calendarTypeAdapter())
@@ -54,7 +56,7 @@ public class TrafficRestApp {
         	
         	responseHeaders(res);
         	
-        	return repository.findByBounds(MeasurementType.TRAFFIC_SPEED, northEastLat, northEastLng, southWestLat, southWestLng);        	
+        	return mstRepository.findByBounds(MeasurementType.TRAFFIC_SPEED, northEastLat, northEastLng, southWestLat, southWestLng);        	
         }, gson::toJson);
         
         get("/measurements/:id", (req, res) -> {
@@ -67,6 +69,24 @@ public class TrafficRestApp {
         	
         	return mdpRepository.findByPeriodAndType(id, type, startTime, period);
         }, gson::toJson);
+        
+        post("/importmeasurements", (req, res) -> {
+        	mdpRepository.resetDb();
+        	mdpReader.parse(req.raw().getInputStream());
+        	mdpRepository.flush();
+        	        	
+        	res.status(201);
+        	
+        	return "done";
+        });
+        
+        post("/importmeasurementpoints", (req, res) -> {
+        	mstReader.parse(req.raw().getInputStream());
+        	
+        	res.status(201);
+        	
+        	return "done";
+        });
         
 
         exception(Exception.class, (exception, request, response) -> {

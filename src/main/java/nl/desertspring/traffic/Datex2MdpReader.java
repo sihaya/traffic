@@ -3,6 +3,7 @@ package nl.desertspring.traffic;
 import static nl.desertspring.traffic.Util.openFile;
 
 import java.io.File;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.util.Calendar;
 
@@ -23,11 +24,16 @@ public class Datex2MdpReader {
 		this.influxWriter = influxWriter;
 		this.datex2MstRepository = datex2MstRepository;
 	}
-
+	
+	
 	public void parse(File file) throws Exception {
+		parse(openFile(file));
+	}
+		
+	public void parse(InputStream inputStream) throws Exception {	
 		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 
-		XMLStreamReader reader = inputFactory.createXMLStreamReader(openFile(file));
+		XMLStreamReader reader = inputFactory.createXMLStreamReader(inputStream);
 
 		while (reader.hasNext()) {
 			int type = reader.next();
@@ -198,5 +204,4 @@ public class Datex2MdpReader {
 			}
 		}
 	}
-
 }

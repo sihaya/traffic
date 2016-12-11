@@ -4,6 +4,7 @@ import static nl.desertspring.traffic.Util.openFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,11 +26,15 @@ public class Datex2MstReader {
 	public Datex2MstReader(Datex2MstRepository repository) {
 		this.repository = repository;
 	}
-
+	
 	public void parse(File file) throws XMLStreamException, ParseException, IOException {
+		parse(openFile(file));
+	}
+	
+	public void parse(InputStream inputStream) throws XMLStreamException, ParseException, IOException {
 		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 
-		XMLStreamReader reader = inputFactory.createXMLStreamReader(openFile(file));
+		XMLStreamReader reader = inputFactory.createXMLStreamReader(inputStream);
 
 		while (reader.hasNext()) {
 			int type = reader.next();
@@ -288,5 +293,5 @@ public class Datex2MstReader {
 		}
 
 		return null;
-	}		
+	}	
 }

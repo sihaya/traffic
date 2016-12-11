@@ -3,6 +3,8 @@ package nl.desertspring.traffic;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+import java.io.File;
+
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.junit.AfterClass;
@@ -51,6 +53,17 @@ public class TrafficRestAppIT {
 		
 		thenItReturnsTheDataFromTheLastHour();
 	}
+	
+	@Test
+	public void processesAnMstAndMdpFileUpload() {
+		givenACleanDatabase();
+		givenAnMstUpload();
+		givenAnMdpUpload();
+		
+		whenRequestingDataForTheMeasurementLocation();
+		
+		thenItReturnsTheDataFromTheLastHour();
+	}
 
 	private void givenACleanDatabase() {
 		Datex2MdpRepository.DB_NAME = "traffic_it";
@@ -77,6 +90,26 @@ public class TrafficRestAppIT {
 				.get("/measurements/{0}", "PZH01_MST_0004_00")
 			.then();
 	}
+	
+	private void givenAnMdpUpload() { 
+		given()
+			.body(new File("src/test/resources/traffic_speed_sample.xml"))
+			.contentType("application/xml")
+		.when()
+			.post("/importmeasurements")
+		.then()
+			.statusCode(201);
+	}
+
+	private void givenAnMstUpload() {
+		given()
+			.body(new File("src/test/resources/mst_for_radius.xml"))
+			.contentType("application/xml")
+		.when()
+			.post("/importmeasurementpoints")
+		.then()
+			.statusCode(201);
+	}
 
 	private void givenMultipleDataPublicationsFromTheLastHour() throws Exception {
 		TrafficImportApp.main(new String[] {
@@ -89,7 +122,7 @@ public class TrafficRestAppIT {
 	private void thenVerifyItReturnsTheMeasurementPointsWithinTheRadius() {
 		response
 			.contentType(ContentType.JSON)
-			.body("size()", is(3));
+			.body("size()", is(1));
 	}
 
 	private void whenRequestingMeasurementPointsWithinRadius() {
