@@ -23,17 +23,20 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', '
 				$scope.markers[i].setMap(null);
 			}
 			
-			for (i in data.data) {
-		        var marker = new google.maps.Marker({
+			data.data.forEach(function(value) {
+				var marker = new google.maps.Marker({
 		          position: {
-		        	  lat: data.data[i].lat,
-		        	  lng: data.data[i].lng,
-		        	  title: data.data[i].id
+		        	  lat: value.lat,
+		        	  lng: value.lng		        	  
 		          },
 		          map: map,
-		          title: 'Hello World!'
+		          title: value.id
 		        });
-			}
+
+				marker.addListener('click', function() {
+					markerClicked(value.id);
+				});
+			});			
 			
 			$scope.markers = markers;
 		});		
@@ -43,12 +46,14 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', '
 		
 	$scope.markers = [];
 		
-	$scope.markerClicked = function(instance, event, model) {						
-		$http.get('/mockdata.json', {
+	var markerClicked = function(id) {
+		$scope.measurementPoint = id;
+
+		$http.get('http://localhost:4567/measurements/' + id, {
 			params: {
-				"period": "24",
-				"time_unit": "hour",
-				"type": "average_speed"
+				"period": 3600 * 24,
+				"start_time": $scope.selectedDate.toISOString(),
+				"type": "traffic_speed"
 			}
 		}).then(function(response) {
 			$scope.series = ["average speed"]
@@ -89,5 +94,9 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', '
 		});
 	}
 	
-	$scope.markerClicked();
+  	$scope.openDate = function() {
+    	$scope.dateOpen = true;
+  	};
+
+	$scope.selectedDate = new Date(2016, 5, 9);
 } ]);

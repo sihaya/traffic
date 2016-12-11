@@ -80,7 +80,10 @@ public class Datex2MdpRepository {
 				+ "WHERE average_speed != -1 and measurement_point = '%s' "
 				+ " AND time >= '%s' AND time < '%s'", 
 				 	id, dateToIso(startTime), dateToIso(endTime));
-		QueryResult queryResult = influxDb.query(new Query(query, DB_NAME));
+		
+		LOGGER.info("Querying: {}", query);
+		
+		QueryResult queryResult = influxDb.query(new Query(query, DB_NAME));			
 		
 		if (queryResult.hasError()) {
 			LOGGER.error("error while querying: {}. Error was: {}", query, queryResult.getError());

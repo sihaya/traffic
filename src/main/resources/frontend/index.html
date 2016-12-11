@@ -1,41 +1,59 @@
 <!DOCTYPE html>
 <html ng-app='traffic' lang="en">
+
 <head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<link rel="stylesheet" href="bootstrap.css">
-<link rel="stylesheet" href="style.css">
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqoNdH1eTyWqThlz1NlmcqsBwofjKslFE" async defer></script>
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/chart.js/dist/Chart.min.js"></script>
-<script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
-<script src="controllers.js"></script>
+	<link rel="stylesheet" href="bootstrap.css">
+	<link rel="stylesheet" href="style.css">
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqoNdH1eTyWqThlz1NlmcqsBwofjKslFE" async defer></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/chart.js/dist/Chart.min.js"></script>
+	<script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+
+	<script src="controllers.js"></script>
 </head>
+
 <body ng-controller="TrafficController">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Traffic monitor</a>
+				<form class="navbar-form navbar-left">
+					<p class="input-group">
+						<input type="text" class="form-control" uib-datepicker-popup ng-model="selectedDate" 
+							ng-required="true" close-text="Close" is-open="dateOpen" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="openDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          				</span>
+					</p>
+				</form>
+			</div>
+		</div>
+	</nav>
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-4 sidebar">
+				<h2>{{measurementPoint}}</h2>
 				<ul class="list-group">
-  					<li class="list-group-item" data-ng-repeat="lane in lanes">
-  						{{lane.name}}
-  						
-  						<canvas class="chart chart-line" 
-  							chart-data="lane.data" 
-  							chart-labels="lane.labels" 
-  							chart-series="series" 
-  							chart-options="options"
+					<li class="list-group-item" data-ng-repeat="lane in lanes">
+						{{lane.name}}
+
+						<canvas class="chart chart-line" chart-data="lane.data" chart-labels="lane.labels" chart-series="series" chart-options="options"
 							chart-dataset-override="datasetOverride">
 						</canvas>
-  					</li>  					
+					</li>
 				</ul>
 			</div>
 			<div class="col-md-8">
-				<div id="map-container"></div>										
+				<div id="map-container"></div>
 			</div>
 		</div>
 	</div>
 </body>
+
 </html>
