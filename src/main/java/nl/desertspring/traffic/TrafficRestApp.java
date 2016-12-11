@@ -44,6 +44,8 @@ public class TrafficRestApp {
 				.registerTypeAdapter(GregorianCalendar.class, calendarTypeAdapter())
 				.create();
 		
+		staticFileLocation("/frontend");
+		
         get("/measurementpoints", (req, res) -> {
         	double northEastLat = Double.parseDouble(req.queryParams("north_east_lat"));
         	double northEastLng = Double.parseDouble(req.queryParams("north_east_lng"));
@@ -52,7 +54,7 @@ public class TrafficRestApp {
         	
         	responseHeaders(res);
         	
-        	return repository.findByBounds(northEastLat, northEastLng, southWestLat, southWestLng);        	
+        	return repository.findByBounds(MeasurementType.TRAFFIC_SPEED, northEastLat, northEastLng, southWestLat, southWestLng);        	
         }, gson::toJson);
         
         get("/measurements/:id", (req, res) -> {

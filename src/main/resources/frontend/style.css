@@ -1,8 +1,10 @@
-html, body, div.container-fluid, div.row, div.col-md-8 {
-	height: 100%
-}
+
 
 #map-container {
-	height: 50%;
+	height: 80vh;
 	width: 100%;
+}
+
+.navbar {
+	margin-bottom: 0px !important;
 }

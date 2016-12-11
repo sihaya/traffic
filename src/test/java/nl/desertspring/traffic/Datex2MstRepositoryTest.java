@@ -42,6 +42,14 @@ public class Datex2MstRepositoryTest {
 				.withLatLng(53.00000, 35.0000)
 				.withType(MeasurementType.TRAFFIC_SPEED);
 		
+		MeasurementCharacteristics otherType = new MeasurementCharacteristics()
+				.withAnyVehicleType(true)
+				.withId("ZH_1001")
+				.withLane(5)
+				.withPeriod(60)
+				.withLatLng(53.00000, 35.0000)
+				.withType(MeasurementType.UNKNOWN);
+		
 		MeasurementCharacteristics notMatching = new MeasurementCharacteristics()
 				.withAnyVehicleType(true)
 				.withId("ZH_0002")
@@ -51,9 +59,10 @@ public class Datex2MstRepositoryTest {
 				.withType(MeasurementType.TRAFFIC_SPEED);
 		
 		datex2MstRepository.save("NDW_1", 123, "ZH_0001", 1, 2, expected);
-		datex2MstRepository.save("NDW_1", 123, "ZH_0002", 1, 2, notMatching);
+		datex2MstRepository.save("NDW_1", 123, "ZH_1001", 1, 2, otherType);
+		datex2MstRepository.save("NDW_1", 123, "ZH_0002", 1, 2, notMatching);		
 		
-		List<MeasurementCharacteristics> results = datex2MstRepository.findByBounds(54.0000, 54.0000, 3.0000, 3.0000);
+		List<MeasurementCharacteristics> results = datex2MstRepository.findByBounds(MeasurementType.TRAFFIC_SPEED, 54.0000, 54.0000, 3.0000, 3.0000);
 		
 		assertThat(results, contains(expected));
 		

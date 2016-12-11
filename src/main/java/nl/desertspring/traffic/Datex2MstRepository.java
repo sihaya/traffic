@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import nl.desertspring.traffic.MeasurementCharacteristics.MeasurementType;
+
 public class Datex2MstRepository {
 	private static class MstKey {
 		private String tableName;
@@ -71,12 +73,13 @@ public class Datex2MstRepository {
 		data.put(new MstKey(tableName, tableVersion, measurementSiteId, version, index), characteristics);
 	}
 
-	public List<MeasurementCharacteristics> findByBounds(double northEastLat, double northEastLng, double southWestLat, double southWestLng) {
+	public List<MeasurementCharacteristics> findByBounds(MeasurementType measurementType, double northEastLat, double northEastLng, double southWestLat, double southWestLng) {
 		Map<String, MeasurementCharacteristics> results = new HashMap<>();
 		
 		for(MeasurementCharacteristics characteristics : data.values()) {
 			if (characteristics.getLat() < northEastLat && characteristics.getLng() < northEastLng && 
-					characteristics.getLat() > southWestLat && characteristics.getLng() > southWestLng) {
+					characteristics.getLat() > southWestLat && characteristics.getLng() > southWestLng &&
+					characteristics.getType() == measurementType) {
 				results.put(characteristics.getId(), characteristics);
 			}
 		}
