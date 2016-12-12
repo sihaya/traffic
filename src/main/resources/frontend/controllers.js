@@ -9,7 +9,7 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', '
 	});
 
 	var loadMeasurementPoints = function() {
-		$http.get("http://localhost:4567/measurementpoints", {
+		$http.get("/measurementpoints", {
 			params: {
 				"north_east_lat": map.getBounds().getNorthEast().lat(),
 				"north_east_lng": map.getBounds().getNorthEast().lng(),
@@ -49,7 +49,7 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', '
 	var markerClicked = function(id) {
 		$scope.measurementPoint = id;
 
-		$http.get('http://localhost:4567/measurements/' + id, {
+		$http.get('/measurements/' + id, {
 			params: {
 				"period": 3600 * 24,
 				"start_time": $scope.selectedDate.toISOString(),

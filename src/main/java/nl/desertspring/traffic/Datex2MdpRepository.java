@@ -24,6 +24,13 @@ import nl.desertspring.traffic.api.MdpMeasurementLane;
 
 import static nl.desertspring.traffic.IsoDateUtil.*;
 
+/**
+ * select mean(average_speed), spread(average_speed) 
+ * from average_vehicle_speed_measurement where average_speed != -1 and 
+ * measurement_point = 'RWS01_MONIBAS_0201hrr0215ra' and time > '2016-12-12' and time < '2016-12-13' group by lane, time(15m)
+ * @author sihaya
+ *
+ */
 public class Datex2MdpRepository {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(Datex2MdpRepository.class);
