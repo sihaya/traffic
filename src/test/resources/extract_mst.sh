@@ -1,0 +1,1 @@
+zcat measurement_2016-09-09T13\:00\:01+02\:00.xml.gz | xgrep -n d="http://datex2.eu/schema/2/2_0" -n s="http://schemas.xmlsoap.org/soap/envelope/" -x "/s:Envelope/s:Body/d:d2LogicalModel/d:payloadPublication/d:measurementSiteTable/d:measurementSiteRecord[@id='$1']"

@@ -61,16 +61,7 @@
 								</vehicleFlow>
 							</basicData>
 						</measuredValue>
-					</measuredValue>
-					<measuredValue index="2">
-						<measuredValue>
-							<basicData xsi:type="TrafficFlow">
-								<vehicleFlow>
-									<vehicleFlowRate>240</vehicleFlowRate>
-								</vehicleFlow>
-							</basicData>
-						</measuredValue>
-					</measuredValue>
+					</measuredValue>					
 					<measuredValue index="3">
 						<measuredValue>
 							<basicData xsi:type="TrafficSpeed">

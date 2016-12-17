@@ -15,7 +15,7 @@
 				<publicationTime>2016-09-09T13:58:40.009Z</publicationTime>
 				<publicationCreator>
 					<country>nl</country>
-					<nationalIdentifier>NLNDW</nationalIdentifier>					
+					<nationalIdentifier>NLNDW</nationalIdentifier>
 				</publicationCreator>
 				<measurementSiteTableReference id="NDW01_MT"
 					version="868" targetClass="MeasurementSiteTable" />
@@ -23,60 +23,84 @@
 					<confidentiality>noRestriction</confidentiality>
 					<informationStatus>real</informationStatus>
 				</headerInformation>
+
 				<siteMeasurements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<measurementSiteReference id="PZH01_MST_0004_00"
-						version="12" targetClass="MeasurementSiteRecord" />
-					<measurementTimeDefault>2016-09-09T13:57:00Z
-					</measurementTimeDefault>
-					<measuredValue index="4">
-						<measuredValue>
-							<basicData xsi:type="TrafficFlow">
-								<vehicleFlow>
-									<vehicleFlowRate>540</vehicleFlowRate>
-								</vehicleFlow>
-							</basicData>
-						</measuredValue>
-					</measuredValue>
-					<measuredValue index="8">
-						<measuredValue>
-							<basicData xsi:type="TrafficSpeed">
-								<averageVehicleSpeed
-									numberOfInputValuesUsed="0">
-									<speed>80</speed>
-								</averageVehicleSpeed>
-							</basicData>
-						</measuredValue>
-					</measuredValue>					
-				</siteMeasurements>
-				<siteMeasurements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<measurementSiteReference id="PUT01_N237.15_0"
+					<measurementSiteReference id="RWS01_MONIBAS_0201hrr0200ra"
 						version="1" targetClass="MeasurementSiteRecord" />
-					<measurementTimeDefault>2016-09-09T13:57:00Z
-					</measurementTimeDefault>
+					<measurementTimeDefault>2016-09-09T13:56:00Z</measurementTimeDefault>
 					<measuredValue index="1">
 						<measuredValue>
 							<basicData xsi:type="TrafficFlow">
 								<vehicleFlow>
-									<vehicleFlowRate>0</vehicleFlowRate>
+									<vehicleFlowRate>1800</vehicleFlowRate>
 								</vehicleFlow>
 							</basicData>
 						</measuredValue>
 					</measuredValue>
 					<measuredValue index="2">
 						<measuredValue>
-							<basicData xsi:type="TrafficFlow">
-								<vehicleFlow>
-									<vehicleFlowRate>240</vehicleFlowRate>
-								</vehicleFlow>
+							<basicData xsi:type="TrafficSpeed">
+								<averageVehicleSpeed>
+									<speed>107</speed>
+								</averageVehicleSpeed>
 							</basicData>
 						</measuredValue>
 					</measuredValue>
 					<measuredValue index="3">
 						<measuredValue>
+							<basicData xsi:type="TrafficFlow">
+								<vehicleFlow>
+									<vehicleFlowRate>1380</vehicleFlowRate>
+								</vehicleFlow>
+							</basicData>
+						</measuredValue>
+					</measuredValue>
+					<measuredValue index="4">
+						<measuredValue>
 							<basicData xsi:type="TrafficSpeed">
-								<averageVehicleSpeed
-									numberOfInputValuesUsed="0">
-									<speed>77</speed>
+								<averageVehicleSpeed>
+									<speed>92</speed>
+								</averageVehicleSpeed>
+							</basicData>
+						</measuredValue>
+					</measuredValue>
+				</siteMeasurements>
+				<siteMeasurements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+					<measurementSiteReference id="RWS01_MONIBAS_0201hrr0197ra"
+						version="1" targetClass="MeasurementSiteRecord" />
+					<measurementTimeDefault>2016-09-09T13:56:00Z</measurementTimeDefault>
+					<measuredValue index="1">
+						<measuredValue>
+							<basicData xsi:type="TrafficFlow">
+								<vehicleFlow>
+									<vehicleFlowRate>1260</vehicleFlowRate>
+								</vehicleFlow>
+							</basicData>
+						</measuredValue>
+					</measuredValue>
+					<measuredValue index="2">
+						<measuredValue>
+							<basicData xsi:type="TrafficSpeed">
+								<averageVehicleSpeed>
+									<speed>93</speed>
+								</averageVehicleSpeed>
+							</basicData>
+						</measuredValue>
+					</measuredValue>
+					<measuredValue index="3">
+						<measuredValue>
+							<basicData xsi:type="TrafficFlow">
+								<vehicleFlow>
+									<vehicleFlowRate>2100</vehicleFlowRate>
+								</vehicleFlow>
+							</basicData>
+						</measuredValue>
+					</measuredValue>
+					<measuredValue index="4">
+						<measuredValue>
+							<basicData xsi:type="TrafficSpeed">
+								<averageVehicleSpeed>
+									<speed>108</speed>
 								</averageVehicleSpeed>
 							</basicData>
 						</measuredValue>

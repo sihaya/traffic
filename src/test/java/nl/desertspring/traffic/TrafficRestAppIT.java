@@ -8,6 +8,7 @@ import java.io.File;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,9 +23,9 @@ public class TrafficRestAppIT {
 	@BeforeClass
 	public static void start() throws Exception {
 		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-		RestAssured.port = 4567;
-		
-		TrafficRestApp.main(new String[] { "src/test/resources/mst_for_radius.xml" });
+		RestAssured.port = 14567;
+				
+		TrafficRestApp.main(new String[] { "14567", "src/test/resources/mst_for_radius.xml" });
 				
 		Spark.awaitInitialization();
 	}
@@ -32,6 +33,11 @@ public class TrafficRestAppIT {
 	@AfterClass
 	public static void stop() {
 		Spark.stop();
+	}
+	
+	@Before
+	public void clear() {
+		TrafficRestApp.getMstRepository().clear();
 	}
 
 	@Test
@@ -77,23 +83,23 @@ public class TrafficRestAppIT {
 		response
 		.log().all().and()
 		.contentType(ContentType.JSON)
-		.body("lanes.size()", is(1))
-		.body("lanes[0].measurements[0].data[0].timestamp", is("2016-09-09T13:57:00Z"));
+		.body("lanes.size()", is(2))
+		.body("lanes[0].measurements[0].data[0].timestamp", is("2016-09-09T13:56:00Z"));
 	}
 
 	private void whenRequestingDataForTheMeasurementLocation() {
 		response = given()
-				.param("start_time", "2016-09-09T13:57:00Z")
+				.param("start_time", "2016-09-09T13:56:00Z")
 				.param("period", "60")				
 				.param("type", "traffic_speed")
 			.when()
-				.get("/measurements/{0}", "PZH01_MST_0004_00")
+				.get("/measurements/{0}", "RWS01_MONIBAS_0201hrr0200ra")
 			.then();
 	}
 	
 	private void givenAnMdpUpload() { 
 		given()
-			.body(new File("src/test/resources/traffic_speed_sample.xml"))
+			.body(new File("src/test/resources/mdp_a20_test_1.xml"))
 			.contentType("application/xml")
 		.when()
 			.post("/importmeasurements")
@@ -102,20 +108,28 @@ public class TrafficRestAppIT {
 	}
 
 	private void givenAnMstUpload() {
+		uploadMst("src/test/resources/mst_a20_test.xml");
+	}
+
+	private void uploadMst(String filename) {
 		given()
-			.body(new File("src/test/resources/mst_for_radius.xml"))
+			.body(new File(filename))
 			.contentType("application/xml")
 		.when()
 			.post("/importmeasurementpoints")
 		.then()
 			.statusCode(201);
 	}
+	
+	private void givenAnMstWithSomeMeasurementPoints() {
+		uploadMst("src/test/resources/mst_for_radius.xml");
+	}	
 
 	private void givenMultipleDataPublicationsFromTheLastHour() throws Exception {
 		TrafficImportApp.main(new String[] {
-				"src/test/resources/mst_for_radius.xml",
+				"src/test/resources/mst_a20_test.xml",
 				"BEGIN_MDP",
-				"src/test/resources/traffic_speed_sample.xml"
+				"src/test/resources/mdp_a20_test_1.xml"
 		});
 	}
 
@@ -135,8 +149,4 @@ public class TrafficRestAppIT {
 			.get("measurementpoints")
 		.then();
 	}
-
-	private void givenAnMstWithSomeMeasurementPoints() {
-		// DONE IN BEFORE
-	}	
 }

@@ -87,4 +87,7 @@ public class Datex2MstRepository {
 		return new ArrayList<>(results.values());
 	}
 
+	public void clear() {
+		data.clear();
+	}
 }

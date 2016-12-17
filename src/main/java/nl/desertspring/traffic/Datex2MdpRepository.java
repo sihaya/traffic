@@ -69,6 +69,8 @@ public class Datex2MdpRepository {
 			return;
 		}
 		
+		LOGGER.info("writing a batch of {} points", batch.getPoints().size());
+		
 		influxDb.write(batch);
 		
 		batch = null;

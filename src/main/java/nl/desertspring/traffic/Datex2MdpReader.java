@@ -11,9 +11,14 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import nl.desertspring.traffic.MeasurementCharacteristics.MeasurementType;
 
 public class Datex2MdpReader {
+	private static final Logger LOGGER = LoggerFactory.getLogger(Datex2MdpReader.class); 
+	
 	private static final String XSI_NS = "http://www.w3.org/2001/XMLSchema-instance";
 	private Datex2MstRepository datex2MstRepository;
 	private Datex2MdpRepository influxWriter;
@@ -120,6 +125,12 @@ public class Datex2MdpReader {
 		int index = Integer.parseInt(reader.getAttributeValue(null, "index"));
 
 		MeasurementCharacteristics characteristics = datex2MstRepository.findByIdAndIndex(tableId, tableVersion, id, version, index);
+		
+		if (characteristics == null) {
+			LOGGER.warn("Cannot lookup tableId: {}, tableVersion: {}, id: {}, version: {}, index: {}", 
+					tableId, tableVersion, id, version, index);
+			throw new IllegalStateException("Unknown measurement point");
+		}
 
 		boolean firstSeen = false;
 		while (reader.hasNext()) {

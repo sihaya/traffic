@@ -22,13 +22,10 @@
 					<informationStatus>real</informationStatus>
 				</headerInformation>
 				<measurementSiteTable id="NDW01_MT" version="868">
-					<measurementSiteRecord id="PZH01_MST_0004_00"
-						version="12">
-						<measurementSiteRecordVersionTime>2014-11-26T12:00:00Z
-						</measurementSiteRecordVersionTime>
+					<measurementSiteRecord id="RWS01_MONIBAS_0201hrr0197ra"
+						version="1">
+						<measurementSiteRecordVersionTime>2005-05-30T22:00:00Z</measurementSiteRecordVersionTime>
 						<computationMethod>arithmeticAverageOfSamplesInATimePeriod</computationMethod>
-						<measurementEquipmentReference>0004_00
-						</measurementEquipmentReference>
 						<measurementEquipmentTypeUsed>
 							<values>
 								<value lang="nl">lus</value>
@@ -36,42 +33,63 @@
 						</measurementEquipmentTypeUsed>
 						<measurementSiteName>
 							<values>
-								<value lang="nl">N206 km 8.024</value>
+								<value lang="nl">0201hrr0197ra</value>
 							</values>
 						</measurementSiteName>
 						<measurementSiteNumberOfLanes>2</measurementSiteNumberOfLanes>
-						<measurementSpecificCharacteristics index="4">
+						<measurementSide>eastBound</measurementSide>
+						<measurementSpecificCharacteristics
+							index="1">
 							<measurementSpecificCharacteristics>
-								<accuracy>95</accuracy>
+								<accuracy>100</accuracy>
 								<period>60</period>
 								<specificLane>lane1</specificLane>
 								<specificMeasurementValueType>trafficFlow</specificMeasurementValueType>
 								<specificVehicleCharacteristics>
-									<lengthCharacteristic>
-										<comparisonOperator>lessThan</comparisonOperator>
-										<vehicleLength>5.6</vehicleLength>
-									</lengthCharacteristic>
+									<vehicleType>anyVehicle</vehicleType>
 								</specificVehicleCharacteristics>
 							</measurementSpecificCharacteristics>
-						</measurementSpecificCharacteristics>	
-						<measurementSpecificCharacteristics index="8">
+						</measurementSpecificCharacteristics>
+						<measurementSpecificCharacteristics
+							index="2">
 							<measurementSpecificCharacteristics>
-								<accuracy>95</accuracy>
+								<accuracy>100</accuracy>
 								<period>60</period>
 								<specificLane>lane1</specificLane>
 								<specificMeasurementValueType>trafficSpeed</specificMeasurementValueType>
 								<specificVehicleCharacteristics>
-									<lengthCharacteristic>
-										<comparisonOperator>lessThan</comparisonOperator>
-										<vehicleLength>5.6</vehicleLength>
-									</lengthCharacteristic>
+									<vehicleType>anyVehicle</vehicleType>
 								</specificVehicleCharacteristics>
 							</measurementSpecificCharacteristics>
-						</measurementSpecificCharacteristics>						
+						</measurementSpecificCharacteristics>
+						<measurementSpecificCharacteristics
+							index="3">
+							<measurementSpecificCharacteristics>
+								<accuracy>100</accuracy>
+								<period>60</period>
+								<specificLane>lane2</specificLane>
+								<specificMeasurementValueType>trafficFlow</specificMeasurementValueType>
+								<specificVehicleCharacteristics>
+									<vehicleType>anyVehicle</vehicleType>
+								</specificVehicleCharacteristics>
+							</measurementSpecificCharacteristics>
+						</measurementSpecificCharacteristics>
+						<measurementSpecificCharacteristics
+							index="4">
+							<measurementSpecificCharacteristics>
+								<accuracy>100</accuracy>
+								<period>60</period>
+								<specificLane>lane2</specificLane>
+								<specificMeasurementValueType>trafficSpeed</specificMeasurementValueType>
+								<specificVehicleCharacteristics>
+									<vehicleType>anyVehicle</vehicleType>
+								</specificVehicleCharacteristics>
+							</measurementSpecificCharacteristics>
+						</measurementSpecificCharacteristics>
 						<measurementSiteLocation xsi:type="Point">
 							<locationForDisplay>
-								<latitude>52.1223</latitude>
-								<longitude>4.49208</longitude>
+								<latitude>51.91892</latitude>
+								<longitude>4.31225</longitude>
 							</locationForDisplay>
 							<supplementaryPositionalDescription>
 								<affectedCarriagewayAndLanes>
@@ -87,23 +105,20 @@
 								</alertCDirection>
 								<alertCMethod4PrimaryPointLocation>
 									<alertCLocation>
-										<specificLocation>10822</specificLocation>
+										<specificLocation>8082</specificLocation>
 									</alertCLocation>
 									<offsetDistance>
-										<offsetDistance>1124</offsetDistance>
+										<offsetDistance>2300</offsetDistance>
 									</offsetDistance>
 								</alertCMethod4PrimaryPointLocation>
 							</alertCPoint>
 						</measurementSiteLocation>
 					</measurementSiteRecord>
-					
-					<measurementSiteRecord id="PZH02_MST_0004_00"
-						version="12">
-						<measurementSiteRecordVersionTime>2014-11-26T12:00:00Z
-						</measurementSiteRecordVersionTime>
+
+					<measurementSiteRecord id="RWS01_MONIBAS_0201hrr0200ra"
+						version="1">
+						<measurementSiteRecordVersionTime>2005-05-30T22:00:00Z</measurementSiteRecordVersionTime>
 						<computationMethod>arithmeticAverageOfSamplesInATimePeriod</computationMethod>
-						<measurementEquipmentReference>0004_00
-						</measurementEquipmentReference>
 						<measurementEquipmentTypeUsed>
 							<values>
 								<value lang="nl">lus</value>
@@ -111,28 +126,63 @@
 						</measurementEquipmentTypeUsed>
 						<measurementSiteName>
 							<values>
-								<value lang="nl">N206 km 8.024</value>
+								<value lang="nl">0201hrr0200ra</value>
 							</values>
 						</measurementSiteName>
 						<measurementSiteNumberOfLanes>2</measurementSiteNumberOfLanes>
-						<measurementSpecificCharacteristics index="1">
+						<measurementSide>eastBound</measurementSide>
+						<measurementSpecificCharacteristics
+							index="1">
 							<measurementSpecificCharacteristics>
-								<accuracy>95</accuracy>
+								<accuracy>100</accuracy>
 								<period>60</period>
 								<specificLane>lane1</specificLane>
 								<specificMeasurementValueType>trafficFlow</specificMeasurementValueType>
 								<specificVehicleCharacteristics>
-									<lengthCharacteristic>
-										<comparisonOperator>lessThan</comparisonOperator>
-										<vehicleLength>5.6</vehicleLength>
-									</lengthCharacteristic>
+									<vehicleType>anyVehicle</vehicleType>
 								</specificVehicleCharacteristics>
 							</measurementSpecificCharacteristics>
-						</measurementSpecificCharacteristics>						
+						</measurementSpecificCharacteristics>
+						<measurementSpecificCharacteristics
+							index="2">
+							<measurementSpecificCharacteristics>
+								<accuracy>100</accuracy>
+								<period>60</period>
+								<specificLane>lane1</specificLane>
+								<specificMeasurementValueType>trafficSpeed</specificMeasurementValueType>
+								<specificVehicleCharacteristics>
+									<vehicleType>anyVehicle</vehicleType>
+								</specificVehicleCharacteristics>
+							</measurementSpecificCharacteristics>
+						</measurementSpecificCharacteristics>
+						<measurementSpecificCharacteristics
+							index="3">
+							<measurementSpecificCharacteristics>
+								<accuracy>100</accuracy>
+								<period>60</period>
+								<specificLane>lane2</specificLane>
+								<specificMeasurementValueType>trafficFlow</specificMeasurementValueType>
+								<specificVehicleCharacteristics>
+									<vehicleType>anyVehicle</vehicleType>
+								</specificVehicleCharacteristics>
+							</measurementSpecificCharacteristics>
+						</measurementSpecificCharacteristics>
+						<measurementSpecificCharacteristics
+							index="4">
+							<measurementSpecificCharacteristics>
+								<accuracy>100</accuracy>
+								<period>60</period>
+								<specificLane>lane2</specificLane>
+								<specificMeasurementValueType>trafficSpeed</specificMeasurementValueType>
+								<specificVehicleCharacteristics>
+									<vehicleType>anyVehicle</vehicleType>
+								</specificVehicleCharacteristics>
+							</measurementSpecificCharacteristics>
+						</measurementSpecificCharacteristics>
 						<measurementSiteLocation xsi:type="Point">
 							<locationForDisplay>
-								<latitude>53.1223</latitude>
-								<longitude>4.49208</longitude>
+								<latitude>51.91838</latitude>
+								<longitude>4.31649</longitude>
 							</locationForDisplay>
 							<supplementaryPositionalDescription>
 								<affectedCarriagewayAndLanes>
@@ -148,71 +198,10 @@
 								</alertCDirection>
 								<alertCMethod4PrimaryPointLocation>
 									<alertCLocation>
-										<specificLocation>10822</specificLocation>
+										<specificLocation>8082</specificLocation>
 									</alertCLocation>
 									<offsetDistance>
-										<offsetDistance>1124</offsetDistance>
-									</offsetDistance>
-								</alertCMethod4PrimaryPointLocation>
-							</alertCPoint>
-						</measurementSiteLocation>
-					</measurementSiteRecord>
-					
-					<measurementSiteRecord id="PZH03_MST_0004_00"
-						version="12">
-						<measurementSiteRecordVersionTime>2014-11-26T12:00:00Z
-						</measurementSiteRecordVersionTime>
-						<computationMethod>arithmeticAverageOfSamplesInATimePeriod</computationMethod>
-						<measurementEquipmentReference>0004_00
-						</measurementEquipmentReference>
-						<measurementEquipmentTypeUsed>
-							<values>
-								<value lang="nl">lus</value>
-							</values>
-						</measurementEquipmentTypeUsed>
-						<measurementSiteName>
-							<values>
-								<value lang="nl">N206 km 8.024</value>
-							</values>
-						</measurementSiteName>
-						<measurementSiteNumberOfLanes>2</measurementSiteNumberOfLanes>
-						<measurementSpecificCharacteristics index="1">
-							<measurementSpecificCharacteristics>
-								<accuracy>95</accuracy>
-								<period>60</period>
-								<specificLane>lane1</specificLane>
-								<specificMeasurementValueType>trafficFlow</specificMeasurementValueType>
-								<specificVehicleCharacteristics>
-									<lengthCharacteristic>
-										<comparisonOperator>lessThan</comparisonOperator>
-										<vehicleLength>5.6</vehicleLength>
-									</lengthCharacteristic>
-								</specificVehicleCharacteristics>
-							</measurementSpecificCharacteristics>
-						</measurementSpecificCharacteristics>						
-						<measurementSiteLocation xsi:type="Point">
-							<locationForDisplay>
-								<latitude>52.1223</latitude>
-								<longitude>4.49208</longitude>
-							</locationForDisplay>
-							<supplementaryPositionalDescription>
-								<affectedCarriagewayAndLanes>
-									<carriageway>mainCarriageway</carriageway>
-								</affectedCarriagewayAndLanes>
-							</supplementaryPositionalDescription>
-							<alertCPoint xsi:type="AlertCMethod4Point">
-								<alertCLocationCountryCode>8</alertCLocationCountryCode>
-								<alertCLocationTableNumber>5.11</alertCLocationTableNumber>
-								<alertCLocationTableVersion>A</alertCLocationTableVersion>
-								<alertCDirection>
-									<alertCDirectionCoded>positive</alertCDirectionCoded>
-								</alertCDirection>
-								<alertCMethod4PrimaryPointLocation>
-									<alertCLocation>
-										<specificLocation>10822</specificLocation>
-									</alertCLocation>
-									<offsetDistance>
-										<offsetDistance>1124</offsetDistance>
+										<offsetDistance>2600</offsetDistance>
 									</offsetDistance>
 								</alertCMethod4PrimaryPointLocation>
 							</alertCPoint>
@@ -222,4 +211,4 @@
 			</payloadPublication>
 		</d2LogicalModel>
 	</SOAP:Body>
-</SOAP:Envelope>          
+</SOAP:Envelope>

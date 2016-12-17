@@ -28,16 +28,19 @@ import static nl.desertspring.traffic.IsoDateUtil.*;
 
 public class TrafficRestApp {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TrafficRestApp.class);
+	private static Datex2MstRepository mstRepository;
 	
 	public static void main(String[] args) throws XMLStreamException, ParseException, IOException {
-		if (args.length != 1) {
-			System.err.println("usage: TrafficRestApp <mst-file>");
+		if (args.length != 2) {
+			System.err.println("usage: TrafficRestApp <port> <mst-file>");
 			System.exit(1);			
 		}
 		
-		String mstFile = args[0];
+		port(Integer.parseInt(args[0]));
 		
-		Datex2MstRepository mstRepository = initializeRepository(new File(mstFile));
+		String mstFile = args[1];
+		
+		mstRepository = initializeRepository(new File(mstFile));
 		Datex2MdpRepository mdpRepository = initializeMdpRepository();
 		Datex2MdpReader mdpReader = new Datex2MdpReader(mdpRepository, mstRepository);
 		Datex2MstReader mstReader = new Datex2MstReader(mstRepository);
@@ -71,11 +74,20 @@ public class TrafficRestApp {
         }, gson::toJson);
         
         post("/importmeasurements", (req, res) -> {
-        	mdpRepository.resetDb();
-        	mdpReader.parse(req.raw().getInputStream());
-        	mdpRepository.flush();
-        	        	
-        	res.status(201);
+        	LOGGER.info("starting import");
+        	
+        	try {
+        		mdpRepository.resetDb();
+        		mdpReader.parse(req.raw().getInputStream());
+        		mdpRepository.flush();
+        		
+        		res.status(201);
+        	} catch(Exception ex) {
+        		LOGGER.error("Caught exception", ex);
+        		res.status(500);
+        	}        	
+        	
+        	LOGGER.info("done with import");
         	
         	return "done";
         });
@@ -126,5 +138,9 @@ public class TrafficRestApp {
 		reader.parse(file);
 
 		return repository;
+	}
+	
+	public static Datex2MstRepository getMstRepository() {
+		return mstRepository;
 	}
 }

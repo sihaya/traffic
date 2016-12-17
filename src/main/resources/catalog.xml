@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE catalog
+   PUBLIC "-//OASIS/DTD Entity Resolution XML Catalog V1.0//EN"
+   "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+	<group prefer="public">
+
+		<public publicId="http://datex2.eu/schema/2/2_0" uri="DATEXIISchema_2_2_1_MSD_MST.xsd" />
+
+
+		
+	</group>
+</catalog>
