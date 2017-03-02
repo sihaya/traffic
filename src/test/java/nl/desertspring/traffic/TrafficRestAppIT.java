@@ -25,7 +25,7 @@ public class TrafficRestAppIT {
 		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 		RestAssured.port = 14567;
 				
-		TrafficRestApp.main(new String[] { "14567", "src/test/resources/mst_for_radius.xml" });
+		TrafficRestApp.main(new String[] { "14567" });
 				
 		Spark.awaitInitialization();
 	}

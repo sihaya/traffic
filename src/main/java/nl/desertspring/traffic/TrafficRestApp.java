@@ -2,7 +2,6 @@ package nl.desertspring.traffic;
 
 import static spark.Spark.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -31,16 +30,14 @@ public class TrafficRestApp {
 	private static Datex2MstRepository mstRepository;
 	
 	public static void main(String[] args) throws XMLStreamException, ParseException, IOException {
-		if (args.length != 2) {
-			System.err.println("usage: TrafficRestApp <port> <mst-file>");
-			System.exit(1);			
+		if (args.length != 1) {
+			System.err.println("usage: TrafficRestApp <port>");
+			System.exit(1);
 		}
 		
 		port(Integer.parseInt(args[0]));
-		
-		String mstFile = args[1];
-		
-		mstRepository = initializeRepository(new File(mstFile));
+				
+		mstRepository = new Datex2MstRepository();
 		Datex2MdpRepository mdpRepository = initializeMdpRepository();
 		Datex2MdpReader mdpReader = new Datex2MdpReader(mdpRepository, mstRepository);
 		Datex2MstReader mstReader = new Datex2MstReader(mstRepository);
@@ -128,16 +125,6 @@ public class TrafficRestApp {
 
 	private static Datex2MdpRepository initializeMdpRepository() {
 		return new Datex2MdpRepository();
-	}
-
-	private static Datex2MstRepository initializeRepository(File file)
-			throws XMLStreamException, ParseException, IOException {
-		Datex2MstRepository repository = new Datex2MstRepository();
-
-		Datex2MstReader reader = new Datex2MstReader(repository);
-		reader.parse(file);
-
-		return repository;
 	}
 	
 	public static Datex2MstRepository getMstRepository() {
