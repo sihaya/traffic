@@ -1,0 +1,20 @@
+version: '2'
+
+services:  
+  # Define an InfluxDB service
+  influxdb:
+    image: influxdb:1.2
+    volumes:
+      - ./data/influxdb:/var/lib/influxdb
+    expose:
+      - "8086"
+  traffic:
+    image: traffic:1
+    environment: 
+      - TRAFFIC_DB_URL=http://influxdb:8086
+      - TRAFFIC_DB_USERNAME=root
+      - TRAFFIC_DB_PASSWORD=root
+    links: 
+      - influxdb
+    ports: 
+      - "5678:5678"

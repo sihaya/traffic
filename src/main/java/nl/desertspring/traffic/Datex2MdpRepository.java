@@ -42,7 +42,11 @@ public class Datex2MdpRepository {
 	
 
 	public Datex2MdpRepository() {
-		influxDb = InfluxDBFactory.connect("http://localhost:8086", "root", "root");
+		String url = System.getProperty("traffic.db.url", "http://localhost:8086");
+		String username = System.getProperty("traffic.db.username", "root");
+		String password = System.getProperty("traffic.db.password", "root");	
+		
+		influxDb = InfluxDBFactory.connect(url, username, password);
 	}
 	
 	public void measurementRead(AverageVehicleSpeedMeasurement speedMeasurement) {
