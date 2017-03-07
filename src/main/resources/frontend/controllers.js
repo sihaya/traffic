@@ -69,7 +69,7 @@ angular.module('traffic').controller('TrafficController', [ '$scope', '$http', '
 				
 				for(i in lane.measurements[0].data) {
 					labels.push(lane.measurements[0].data[i].timestamp)
-					data.push(lane.measurements[0].data[i].value)
+					data.push(lane.measurements[0].data[i].value ? lane.measurements[0].data[i].value : null)
 				}
 				
 				graphData.data = [data];

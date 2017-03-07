@@ -84,8 +84,9 @@ public class MdpRepositoryIT {
 		assertEquals(1, lane.getMeasurements().size());
 		
 		MdpMeasurementData data = lane.getMeasurements().get(0);
-		assertEquals(1, data.getData().size());
+		assertEquals(2, data.getData().size());
 		
 		assertEquals(45, data.getData().get(0).getValue());
+		assertEquals(0, data.getData().get(1).getValue());
 	}
 }

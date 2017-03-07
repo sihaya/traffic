@@ -128,13 +128,9 @@ public class Datex2MdpRepository {
 					.withType(MeasurementType.TRAFFIC_SPEED));
 			
 			for(List<Object> row : series.getValues()) {
-				if (row.get(1) == null) {
-					continue;
-				}
-				
 				MdpMeasurementData.ValueTuple tuple = new MdpMeasurementData.ValueTuple()
 						.withTimestamp(dateFromIso(row.get(0).toString()))
-						.withValue(((Double)row.get(1)).longValue());
+						.withValue(row.get(1) != null ? ((Double)row.get(1)).longValue() : 0);
 				
 				lane.getMeasurements().get(0).getData().add(tuple);
 			}
