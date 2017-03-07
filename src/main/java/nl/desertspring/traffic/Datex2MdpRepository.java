@@ -1,10 +1,11 @@
 package nl.desertspring.traffic;
 
+import static nl.desertspring.traffic.IsoDateUtil.dateFromIso;
+import static nl.desertspring.traffic.IsoDateUtil.dateToIso;
+
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.influxdb.InfluxDB;
@@ -14,6 +15,7 @@ import org.influxdb.dto.BatchPoints;
 import org.influxdb.dto.Point;
 import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
+import org.influxdb.dto.QueryResult.Series;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +23,6 @@ import nl.desertspring.traffic.MeasurementCharacteristics.MeasurementType;
 import nl.desertspring.traffic.api.MdpMeasurement;
 import nl.desertspring.traffic.api.MdpMeasurementData;
 import nl.desertspring.traffic.api.MdpMeasurementLane;
-
-import static nl.desertspring.traffic.IsoDateUtil.*;
 
 /**
  * select mean(average_speed), spread(average_speed) 
@@ -80,19 +80,20 @@ public class Datex2MdpRepository {
 		batch = null;
 	}
 		
-	public void resetDb() {				
+	public void resetDb() {			
 		influxDb.createDatabase(DB_NAME);
 	}
 
-	public MdpMeasurement findByPeriodAndType(String id, MeasurementType type, Calendar startTime, long period) {
+	public MdpMeasurement findByPeriodAndType(String id, MeasurementType type, Calendar startTime, long period, int aggregationPeriodS) {
 		Calendar endTime = (Calendar) startTime.clone();
 		endTime.add(Calendar.SECOND, (int)period);
 		
 		
-		String query = String.format("SELECT average_speed, lane FROM average_vehicle_speed_measurement " 
+		String query = String.format("SELECT mean(average_speed) FROM average_vehicle_speed_measurement " 
 				+ "WHERE average_speed != -1 and measurement_point = '%s' "
-				+ " AND time >= '%s' AND time < '%s'", 
-				 	id, dateToIso(startTime), dateToIso(endTime));
+				+ " AND time >= '%s' AND time < '%s'"
+				+ " group by lane, time(%ds)", 
+				 	id, dateToIso(startTime), dateToIso(endTime), aggregationPeriodS);
 		
 		LOGGER.info("Querying: {}", query);
 		
@@ -104,39 +105,52 @@ public class Datex2MdpRepository {
 			return null;
 		}
 		
-		Map<Object, MdpMeasurementLane> lanes = processResults(queryResult);
+		List<MdpMeasurementLane> lanes = processResults(queryResult);
 		
 		return new MdpMeasurement()
 				.withId(id)
-				.withLanes(new ArrayList<>(lanes.values()));
+				.withLanes(new ArrayList<>(lanes));
 	}
 
-	private Map<Object, MdpMeasurementLane> processResults(QueryResult queryResult) {				
-		Map<Object, MdpMeasurementLane> lanes = new HashMap<>();		
+	private List<MdpMeasurementLane> processResults(QueryResult queryResult) {				
+		List<MdpMeasurementLane> result = new ArrayList<>();		
 		
 		if (queryResult.getResults().get(0).getSeries() == null) {
-			return lanes;
+			return result;
 		}
 		
-		for (List<Object> row : queryResult.getResults().get(0).getSeries().get(0).getValues()) {
-			MdpMeasurementData.ValueTuple tuple = new MdpMeasurementData.ValueTuple()
-					.withTimestamp(dateFromIso(row.get(0).toString()))
-					.withValue(((Double)row.get(1)).longValue());
+		for (Series series : queryResult.getResults().get(0).getSeries()) {
+			MdpMeasurementLane lane = new MdpMeasurementLane()
+						.withName("lane_" + series.getTags().get("lane"));
+							
+			lane.getMeasurements().add(
+					new MdpMeasurementData()
+					.withType(MeasurementType.TRAFFIC_SPEED));
 			
-			MdpMeasurementLane lane = lanes.get(row.get(2));
-			if (lane == null) {
-				lane = new MdpMeasurementLane()
-						.withName("lane_" + row.get(2));
-				lanes.put(row.get(2), lane);
+			for(List<Object> row : series.getValues()) {
+				if (row.get(1) == null) {
+					continue;
+				}
 				
-				lane.getMeasurements().add(
-						new MdpMeasurementData()
-						.withType(MeasurementType.TRAFFIC_SPEED));
+				MdpMeasurementData.ValueTuple tuple = new MdpMeasurementData.ValueTuple()
+						.withTimestamp(dateFromIso(row.get(0).toString()))
+						.withValue(((Double)row.get(1)).longValue());
+				
+				lane.getMeasurements().get(0).getData().add(tuple);
 			}
 			
-			lane.getMeasurements().get(0).getData().add(tuple);
+			result.add(lane);
 		}
-		return lanes;
+		return result;
+	}
+
+	public void resetDbForTesting() {
+		if (DB_NAME.equals("trafficTest")) {
+			throw new IllegalStateException("Please set the testing database");
+		}
+		
+		influxDb.deleteDatabase(DB_NAME);
+		influxDb.createDatabase(DB_NAME);
 	}
 
 }

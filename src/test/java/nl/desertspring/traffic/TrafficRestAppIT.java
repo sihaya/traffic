@@ -84,7 +84,7 @@ public class TrafficRestAppIT {
 		.log().all().and()
 		.contentType(ContentType.JSON)
 		.body("lanes.size()", is(2))
-		.body("lanes[0].measurements[0].data[0].timestamp", is("2016-09-09T13:56:00Z"));
+		.body("lanes[0].measurements[0].data[0].timestamp", is("2016-09-09T13:55:00Z"));
 	}
 
 	private void whenRequestingDataForTheMeasurementLocation() {

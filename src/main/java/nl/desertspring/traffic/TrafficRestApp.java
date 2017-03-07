@@ -67,7 +67,7 @@ public class TrafficRestApp {
         	
         	responseHeaders(res);
         	
-        	return mdpRepository.findByPeriodAndType(id, type, startTime, period);
+        	return mdpRepository.findByPeriodAndType(id, type, startTime, period, 60);
         }, gson::toJson);
         
         post("/importmeasurements", (req, res) -> {
