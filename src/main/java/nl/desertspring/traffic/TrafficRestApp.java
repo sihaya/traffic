@@ -8,6 +8,9 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequestWrapper;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.stream.XMLStreamException;
 
 import org.slf4j.Logger;
@@ -21,6 +24,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 import nl.desertspring.traffic.MeasurementCharacteristics.MeasurementType;
+import spark.Request;
 import spark.Response;
 
 import static nl.desertspring.traffic.IsoDateUtil.*;
@@ -28,6 +32,15 @@ import static nl.desertspring.traffic.IsoDateUtil.*;
 public class TrafficRestApp {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TrafficRestApp.class);
 	private static Datex2MstRepository mstRepository;
+	
+	public static ServletInputStream getInputStream(Request request) throws IOException {
+	    final HttpServletRequest raw = request.raw();
+	    if (raw instanceof ServletRequestWrapper) {
+	        return ((ServletRequestWrapper) raw).getRequest().getInputStream();
+	    }
+
+	    return raw.getInputStream();
+	}
 	
 	public static void main(String[] args) throws XMLStreamException, ParseException, IOException {
 		if (args.length != 1) {
@@ -75,7 +88,7 @@ public class TrafficRestApp {
         	
         	try {
         		mdpRepository.resetDb();
-        		mdpReader.parse(req.raw().getInputStream());
+        		mdpReader.parse(getInputStream(req));
         		mdpRepository.flush();
         		
         		res.status(201);
@@ -90,7 +103,7 @@ public class TrafficRestApp {
         });
         
         post("/importmeasurementpoints", (req, res) -> {
-        	mstReader.parse(req.raw().getInputStream());
+        	mstReader.parse(getInputStream(req));
         	
         	res.status(201);
         	
